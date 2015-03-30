@@ -36,7 +36,7 @@ public class Busines extends Fragment {
     private RadioButton radiolimit,radioarea,radioButtonAset,radioButtonTwoset;
     private LinearLayout layoutMoney,layoutArea;
     private Spinner spinnerAgeLimit,spinnerInterestRate,spinnerDownPayment;
-    private EditText editTextLoanAmount,editTextUnitPrice,editTextArea;
+    private EditText editTextLoanAmount,editTextUnitPrice,editTextArea,editTextRate;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,6 +78,8 @@ public class Busines extends Fragment {
             editTextLoanAmount = (EditText)v.findViewById(R.id.editTextLoanAmount);//贷款金额
             editTextUnitPrice = (EditText)v.findViewById(R.id.editTextUnitPrice);//每平方单价
             editTextArea = (EditText)v.findViewById(R.id.editTextArea);//房子面积
+            editTextRate = (EditText)v.findViewById(R.id.editTextRate);//利率值
+
             layoutMoney = (LinearLayout)v.findViewById(R.id.layoutMoney);//贷款金额区域
             layoutArea = (LinearLayout)v.findViewById(R.id.layoutArea);//面积区域
 
@@ -111,7 +113,7 @@ public class Busines extends Fragment {
             final List<InterestRate> interestratess = new ArrayList<InterestRate>();
 
             for(int i=9;i>0;i--){
-                InterestRate tmp = new InterestRate(i,"201"+i+"年");
+                InterestRate tmp = new InterestRate(i,"201" + i + "年",i*1.0);
                 interestratess.add(tmp);
                 tmp = null;
             }
@@ -121,6 +123,7 @@ public class Busines extends Fragment {
             spinnerInterestRate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    editTextRate.setText(interestratess.get(i).rate+"%");
                     Toast.makeText(getActivity(),interestratess.get(i).toString()+"",Toast.LENGTH_LONG).show();
                 }
 
@@ -218,10 +221,12 @@ public class Busines extends Fragment {
     public class InterestRate{
         public Integer id;
         public String value;
+        public Double rate;
 
-        public InterestRate(Integer id,String value){
+        public InterestRate(Integer id,String value,Double rate){
             this.id = id;
             this.value = value;
+            this.rate = rate;
         }
 
         public String toString(){

@@ -240,6 +240,13 @@
                 android:id="@+id/spinnerInterestRate"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
+
+            <EditText
+                android:ems="4"
+                android:inputType="numberDecimal"
+                android:id="@+id/editTextRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>
