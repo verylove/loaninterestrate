@@ -5,4 +5,25 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ResultTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#77747d</item>
+    </style>
+
+    <style name="ReultBody">
+        <item name="android:textColor">#666666</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="ReultBodyLeft">
+        <item name="android:textColor">#666666</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="ReultBodyRight">
+        <item name="android:textColor">#FF0000</item>
+        <item name="android:background">#00000000</item>
+    </style>
+
+
 </resources>
