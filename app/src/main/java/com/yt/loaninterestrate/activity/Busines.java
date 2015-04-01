@@ -1,4 +1,4 @@
-package com.yt.loaninterestrate;
+package com.yt.loaninterestrate.activity;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -13,18 +13,16 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yt.loaninterestrate.Calculate;
+import com.yt.loaninterestrate.R;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 
 public class Busines extends Fragment {

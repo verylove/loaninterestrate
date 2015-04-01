@@ -25,5 +25,9 @@
         <item name="android:background">#00000000</item>
     </style>
 
+    <style name="background">
+        <item name="android:background">@drawable/bg</item>
+    </style>
+
 
 </resources>
