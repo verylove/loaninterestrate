@@ -1,12 +1,16 @@
 package com.yt.loaninterestrate.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+enum FormulaMode{
+        MEONY,AREA
+}
+
 public class Busines extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
@@ -33,6 +41,8 @@ public class Busines extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FormulaMode formulaMode;
     private RadioButton radiolimit, radioarea, radioButtonAset, radioButtonTwoset;
     private LinearLayout layoutMoney, layoutArea;
     private Spinner spinnerAgeLimit, spinnerInterestRate, spinnerDownPayment;
@@ -41,12 +51,10 @@ public class Busines extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private TextView textViewDiminishingMoney, textViewDiminishingMonth, textViewDiminishingFristMonthMoney, textViewDiminishingOffMoney, textViewDiminishingInterestMoney, textViewDiminishingAllMoney;
 
-    private TextView textViewEvenMoney, textViewEvenMonth, textViewEvenMonthMoney, textViewEvenInterestMoney, textViewEvenAllMoney;
+    private double loanMoney, loanYear, loanRate ,areaHouse, squareHouse;
 
-    private double loanMoney, loanYear, loanRate;
-
+    private Integer downPayment;
 
     public static Busines newInstance(String param1, String param2) {
         Busines fragment = new Busines();
@@ -69,6 +77,7 @@ public class Busines extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        formulaMode = FormulaMode.MEONY;
 
     }
 
@@ -76,42 +85,8 @@ public class Busines extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_busines, container, false);
-        radiolimit = (RadioButton) v.findViewById(R.id.radiolimit);//贷款额度按钮
-        radioarea = (RadioButton) v.findViewById(R.id.radioarea);//面积按钮
 
-        radioButtonAset = (RadioButton) v.findViewById(R.id.radioButtonAset);//一套
-        radioButtonTwoset = (RadioButton) v.findViewById(R.id.radioButtonTwoSet);//二套
-
-
-        editTextLoanAmount = (EditText) v.findViewById(R.id.editTextLoanAmount);//贷款金额
-        editTextUnitPrice = (EditText) v.findViewById(R.id.editTextUnitPrice);//每平方单价
-        editTextArea = (EditText) v.findViewById(R.id.editTextArea);//房子面积
-        editTextRate = (EditText) v.findViewById(R.id.editTextRate);//利率值
-
-        layoutMoney = (LinearLayout) v.findViewById(R.id.layoutMoney);//贷款金额区域
-        layoutArea = (LinearLayout) v.findViewById(R.id.layoutArea);//面积区域
-
-        spinnerAgeLimit = (Spinner) v.findViewById(R.id.spinnerAgeLimit);//贷款年限选择列表
-
-
-        loanMoney = 0.0;
-        loanYear = 0.0;
-        loanRate = 0.0;
-
-        //处理显示数据
-        textViewEvenMoney = (TextView) v.findViewById(R.id.textViewEvenMoney);
-        textViewEvenMonth = (TextView) v.findViewById(R.id.textViewEvenMonth);
-        textViewEvenMonthMoney = (TextView) v.findViewById(R.id.textViewEvenMonthMoney);
-        textViewEvenInterestMoney = (TextView) v.findViewById(R.id.textViewEvenInterestMoney);
-        textViewEvenAllMoney = (TextView) v.findViewById(R.id.textViewEvenAllMoney);
-
-        textViewDiminishingMoney = (TextView) v.findViewById(R.id.textViewDiminishingMoney);
-        textViewDiminishingMonth = (TextView) v.findViewById(R.id.textViewDiminishingMonth);
-        textViewDiminishingFristMonthMoney = (TextView) v.findViewById(R.id.textViewDiminishingFristMonthMoney);
-        textViewDiminishingOffMoney = (TextView) v.findViewById(R.id.textViewDiminishingOffMoney);
-        textViewDiminishingInterestMoney = (TextView) v.findViewById(R.id.textViewDiminishingInterestMoney);
-        textViewDiminishingAllMoney = (TextView) v.findViewById(R.id.textViewDiminishingAllMoney);
-
+        initData(v);
 
         //贷款年限
         final List<AgeLimitData> agelimitdatas = new ArrayList<AgeLimitData>();
@@ -122,7 +97,9 @@ public class Busines extends Fragment {
             tmp = null;
         }
         ArrayAdapter<AgeLimitData> adapterAgeLimit = new ArrayAdapter<AgeLimitData>(getActivity(), android.R.layout.simple_spinner_item, agelimitdatas);
+        adapterAgeLimit.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinnerAgeLimit.setAdapter(adapterAgeLimit);
+        spinnerAgeLimit.setSelection(9);
 
         spinnerAgeLimit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -139,7 +116,6 @@ public class Busines extends Fragment {
         });
 
         //年利率
-        spinnerInterestRate = (Spinner) v.findViewById(R.id.spinnerInterestRate);//年利率选择列表
         final List<InterestRate> interestratess = new ArrayList<InterestRate>();
 
         for (int i = 9; i > 0; i--) {
@@ -164,7 +140,6 @@ public class Busines extends Fragment {
         });
 
         //首付
-        spinnerDownPayment = (Spinner) v.findViewById(R.id.spinnerDownPayment);//首付选择列表
         final List<DownPayment> downpayments = new ArrayList<DownPayment>();
         for (int i = 2; i <= 9; i++) {
             DownPayment tmp = new DownPayment(i, i + "成");
@@ -173,10 +148,12 @@ public class Busines extends Fragment {
         }
         ArrayAdapter adapterDownPayment = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, downpayments);
         spinnerDownPayment.setAdapter(adapterDownPayment);
+        spinnerDownPayment.setSelection(1);
         spinnerDownPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getActivity(), downpayments.get(i).toString() + "", Toast.LENGTH_LONG).show();
+                downPayment = downpayments.get(i).key;
             }
 
             @Override
@@ -192,6 +169,7 @@ public class Busines extends Fragment {
                 if (radiolimit.isChecked()) {
                     layoutMoney.setVisibility(View.VISIBLE);
                     layoutArea.setVisibility(View.GONE);
+                    formulaMode = FormulaMode.MEONY;
                 }
 
             }
@@ -204,7 +182,7 @@ public class Busines extends Fragment {
                 if (radioarea.isChecked()) {
                     layoutArea.setVisibility(View.VISIBLE);
                     layoutMoney.setVisibility(View.GONE);
-
+                    formulaMode = FormulaMode.AREA;
                 }
             }
         });
@@ -226,32 +204,57 @@ public class Busines extends Fragment {
             }
         });
 
-
-        buttonCalculate = (Button) v.findViewById(R.id.calculate);
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(editTextRate.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity(),"请输入贷款利率",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 loanRate = Double.parseDouble(editTextRate.getText().toString()) / 100;
-                loanMoney = Double.parseDouble(editTextLoanAmount.getText().toString());
-                Calculate t1 = new Calculate(loanRate, loanMoney, loanYear);
-                t1.evenMoney();
 
-                //等息
-                textViewEvenMoney.setText(get4s5r(t1.loanAmount, 2) + "");
-                textViewEvenMonth.setText(get4s5r(t1.monthCount, 0) + "");
-                textViewEvenMonthMoney.setText(get4s5r(t1.repayMonthMoney, 2) + "");
-                textViewEvenInterestMoney.setText(get4s5r(t1.repayInterest, 2) + "");
-                textViewEvenAllMoney.setText(get4s5r(t1.repayAllMoney, 2) + "");
+                if(formulaMode == FormulaMode.MEONY) {
+                    if(editTextLoanAmount.getText().toString().isEmpty()){
+                        Toast.makeText(getActivity(),"请输入贷款额度",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    loanMoney = Double.parseDouble(editTextLoanAmount.getText().toString());
+                }else{
+                    //downPayment首付
+                    if (editTextArea.getText().toString().isEmpty()){
+                        Toast.makeText(getActivity(), "请输入房子的面积", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    areaHouse = Double.parseDouble(editTextArea.getText().toString());
 
-                Calculate t2 = new Calculate(loanRate, loanMoney, loanYear);
-                t2.diminishingMoney();
-                //等金
-                textViewDiminishingMoney.setText(get4s5r(t2.loanAmount, 2) + "");
-                textViewDiminishingMonth.setText(get4s5r(t2.monthCount, 0) + "");
-                textViewDiminishingFristMonthMoney.setText(get4s5r(t2.returnAllMonth.get(0).doubleValue(), 2) + "");
-                textViewDiminishingOffMoney.setText(get4s5r(t2.repayLiminishing, 2) + "");
-                textViewDiminishingInterestMoney.setText(get4s5r(t2.repayInterest, 2) + "");
-                textViewDiminishingAllMoney.setText(get4s5r(t2.repayAllMoney, 2) + "");
+                    if(editTextUnitPrice.getText().toString().isEmpty()) {
+                        Toast.makeText(getActivity(), "请输入房子的单价", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    squareHouse = Double.parseDouble(editTextUnitPrice.getText().toString());
+
+                    loanMoney = (areaHouse*squareHouse)*(1-(0.1*downPayment));
+
+                }
+
+                ResultActivity resultTip = new ResultActivity(getActivity(),R.style.result_dialog,loanRate,loanMoney,loanYear);
+
+                Window dialogWindow = resultTip.getWindow();
+                WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+                dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
+
+                lp.x = 100; // 新位置X坐标
+                lp.y = 500; // 新位置Y坐标
+                lp.width = 600; // 宽度
+                lp.height = 600; // 高度
+                lp.alpha = 0.9f; // 透明度
+
+                dialogWindow.setAttributes(lp);
+
+                resultTip.show();
+
+
 
             }
         });
@@ -259,12 +262,41 @@ public class Busines extends Fragment {
         return v;
     }
 
-    public Double get4s5r(Double data, Integer c) {
-        if(data!=0) {
-            data = new java.math.BigDecimal(Double.toString(data)).setScale(c, java.math.BigDecimal.ROUND_HALF_UP).doubleValue();
-        }
-        return data;
+    public void initData(View v){
+
+        radiolimit = (RadioButton) v.findViewById(R.id.radiolimit);//贷款额度按钮
+        radioarea = (RadioButton) v.findViewById(R.id.radioarea);//面积按钮
+
+        radioButtonAset = (RadioButton) v.findViewById(R.id.radioButtonAset);//一套
+        radioButtonTwoset = (RadioButton) v.findViewById(R.id.radioButtonTwoSet);//二套
+
+
+        editTextLoanAmount = (EditText) v.findViewById(R.id.editTextLoanAmount);//贷款金额
+        editTextUnitPrice = (EditText) v.findViewById(R.id.editTextUnitPrice);//每平方单价
+        editTextArea = (EditText) v.findViewById(R.id.editTextArea);//房子面积
+        editTextRate = (EditText) v.findViewById(R.id.editTextRate);//利率值
+
+        layoutMoney = (LinearLayout) v.findViewById(R.id.layoutMoney);//贷款金额区域
+        layoutArea = (LinearLayout) v.findViewById(R.id.layoutArea);//面积区域
+
+        spinnerAgeLimit = (Spinner) v.findViewById(R.id.spinnerAgeLimit);//贷款年限选择列表
+        spinnerInterestRate = (Spinner) v.findViewById(R.id.spinnerInterestRate);//年利率选择列表
+        spinnerDownPayment = (Spinner) v.findViewById(R.id.spinnerDownPayment);//首付选择列表
+
+        buttonCalculate = (Button) v.findViewById(R.id.calculate);//计算按钮
+
+        loanMoney = 0.0;
+        loanYear = 9;
+        loanRate = 0.0;
+
+        areaHouse = 0.0;
+        downPayment = 3;
+        areaHouse = 0.0;
+
+
     }
+
+
 
     //贷款年限类
     public class AgeLimitData {

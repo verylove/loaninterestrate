@@ -81,17 +81,17 @@ public class Calculate {
   */
   public void diminishingMoney(){
 
-      System.out.printf("----------------");
+      //System.out.printf("----------------");
       for(int i = 0;i<monthCount;i++){
           returnedMoney = i * loanAmount / monthCount;
           repayMonthMoney = (loanAmount / monthCount ) + ( loanAmount - returnedMoney ) * monthInterestRate;
           //System.out.printf(i+"月"+repayMonthMoney+"\n");
           returnAllMonth.add(i,repayMonthMoney);
-          repayMonthMoney += repayMonthMoney;
+          repayAllMoney += repayMonthMoney;
 
       }
 
-      repayLiminishing = returnAllMonth.get(1)- returnAllMonth.get(0);
+      repayLiminishing = returnAllMonth.get(0)- returnAllMonth.get(1);
       repayInterest = repayAllMoney - loanAmount;
 
   }
