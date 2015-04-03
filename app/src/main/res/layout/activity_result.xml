@@ -12,6 +12,7 @@
 
         <TableLayout
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:stretchColumns="1">
 
@@ -37,6 +38,10 @@
             <TableRow style="@style/ReultBody"><TextView android:text="本息合计" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewDiminishingAllMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元" /></TableRow>
         </TableLayout>
 
+        <Button
+            android:text="返回"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

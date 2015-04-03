@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -45,9 +46,9 @@ public class Busines extends Fragment {
     private FormulaMode formulaMode;
     private RadioButton radiolimit, radioarea, radioButtonAset, radioButtonTwoset;
     private LinearLayout layoutMoney, layoutArea;
-    private Spinner spinnerAgeLimit, spinnerInterestRate, spinnerDownPayment;
+    private Spinner spinnerAgeLimit, spinnerInterestRate, spinnerDownPayment,spinnerInterestRateSell;
     private EditText editTextLoanAmount, editTextUnitPrice, editTextArea, editTextRate;
-    private Button buttonCalculate;
+    private ImageButton buttonCalculate;
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,6 +89,7 @@ public class Busines extends Fragment {
 
         initData(v);
 
+
         //贷款年限
         final List<AgeLimitData> agelimitdatas = new ArrayList<AgeLimitData>();
 
@@ -117,6 +119,8 @@ public class Busines extends Fragment {
 
         //年利率
         final List<InterestRate> interestratess = new ArrayList<InterestRate>();
+        //利率折扣
+        final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
 
         for (int i = 9; i > 0; i--) {
             InterestRate tmp = new InterestRate(i, "201" + i + "年", i * 1.0);
@@ -125,12 +129,55 @@ public class Busines extends Fragment {
         }
 
         ArrayAdapter<InterestRate> adapterInterestRate = new ArrayAdapter<InterestRate>(getActivity(), android.R.layout.simple_spinner_item, interestratess);
+        adapterInterestRate.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinnerInterestRate.setAdapter(adapterInterestRate);
         spinnerInterestRate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                editTextRate.setText(interestratess.get(i).rate + "");
-                Toast.makeText(getActivity(), interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
+                double tmp =  Double.parseDouble(interestrateselldatas.get(i).key.toString());
+                if(tmp==0){
+                    double tmp1 = interestratess.get(i).rate;
+                    editTextRate.setText((1*tmp1)+"");
+                }else{
+                    double tmp1 = interestratess.get(i).rate;
+                    editTextRate.setText((tmp*0.1*tmp1)+"");
+                }
+
+               // Toast.makeText(getActivity(), interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        //利率折扣
+        interestrateselldatas.add(new interestRateSellData(0,"不打折"));
+        for (int i=9;i>=1;i--){
+            interestRateSellData tmp = new interestRateSellData(i,i+"折");
+            interestrateselldatas.add(tmp);
+            tmp = null;
+        }
+
+        ArrayAdapter<interestRateSellData> adapterInterestRateSell = new ArrayAdapter<interestRateSellData>(getActivity(),android.R.layout.simple_dropdown_item_1line,interestrateselldatas);
+        adapterInterestRateSell.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spinnerInterestRateSell.setAdapter(adapterInterestRateSell);
+        spinnerInterestRateSell.setSelection(0);
+        spinnerInterestRateSell.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if(i==0){
+                    double tmp =  1;//不打折
+                    double tmp1 = interestratess.get(spinnerInterestRate.getSelectedItemPosition()).rate;
+                    editTextRate.setText((tmp*tmp1)+"");
+                }else{
+                    double tmp =  Double.parseDouble(interestrateselldatas.get(i).key.toString());
+                    double tmp1 = interestratess.get(spinnerInterestRate.getSelectedItemPosition()).rate;
+                    editTextRate.setText((tmp*0.1*tmp1)+"");
+                }
+
             }
 
             @Override
@@ -240,15 +287,16 @@ public class Busines extends Fragment {
 
                 ResultActivity resultTip = new ResultActivity(getActivity(),R.style.result_dialog,loanRate,loanMoney,loanYear);
 
+                resultTip.setActivity(getActivity());
                 Window dialogWindow = resultTip.getWindow();
                 WindowManager.LayoutParams lp = dialogWindow.getAttributes();
                 dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
 
-                lp.x = 100; // 新位置X坐标
-                lp.y = 500; // 新位置Y坐标
-                lp.width = 600; // 宽度
+                lp.x = 35; // 新位置X坐标
+                lp.y = 650; // 新位置Y坐标
+                lp.width = 650; // 宽度
                 lp.height = 600; // 高度
-                lp.alpha = 0.9f; // 透明度
+                lp.alpha = 1.0f; // 透明度
 
                 dialogWindow.setAttributes(lp);
 
@@ -282,8 +330,9 @@ public class Busines extends Fragment {
         spinnerAgeLimit = (Spinner) v.findViewById(R.id.spinnerAgeLimit);//贷款年限选择列表
         spinnerInterestRate = (Spinner) v.findViewById(R.id.spinnerInterestRate);//年利率选择列表
         spinnerDownPayment = (Spinner) v.findViewById(R.id.spinnerDownPayment);//首付选择列表
+        spinnerInterestRateSell = (Spinner)v.findViewById(R.id.spinnerInterestRateSell);//利率折扣
 
-        buttonCalculate = (Button) v.findViewById(R.id.calculate);//计算按钮
+        buttonCalculate = (ImageButton) v.findViewById(R.id.calculate);//计算按钮
 
         loanMoney = 0.0;
         loanYear = 9;
@@ -296,6 +345,18 @@ public class Busines extends Fragment {
 
     }
 
+    //利率折扣类
+    public class interestRateSellData{
+        Integer key;
+        String value;
+
+        public interestRateSellData(Integer key,String value){
+            this.key = key;
+            this.value = value;
+        }
+
+        public String toString(){return value;}
+    }
 
 
     //贷款年限类

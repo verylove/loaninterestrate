@@ -1,8 +1,14 @@
 package com.yt.loaninterestrate.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.MotionEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.yt.loaninterestrate.Calculate;
@@ -19,7 +25,9 @@ public class ResultActivity extends Dialog {
 
     private TextView textViewEvenMoney, textViewEvenMonth, textViewEvenMonthMoney, textViewEvenInterestMoney, textViewEvenAllMoney;
 
+    private Activity parentActivity;
 
+    private Point startPos,endPos;
 
     public ResultActivity(Context context, int theme,double loanRate, double loanMoney, double loanYear) {
         super(context, theme);
@@ -68,8 +76,56 @@ public class ResultActivity extends Dialog {
         textViewDiminishingInterestMoney.setText(get4s5r(t2.repayInterest, 2) + "");
         textViewDiminishingAllMoney.setText(get4s5r(t2.repayAllMoney, 2) + "");
 
+        startPos = new Point();
+        endPos = new Point();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        Window dialogWindow = this.getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+
+
+        int x = (int)event.getX();
+        int y = (int)event.getY();;
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startPos.x = x;
+                startPos.y = y;
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+                endPos.x = x;
+                endPos.y = y;
+                lp.x += endPos.x - startPos.x;
+                lp.y += endPos.y - startPos.y;
+
+                if(lp.x<0) lp.x = 0;
+                if(lp.y<0) lp.y = 0;
+
+                WindowManager m =   parentActivity.getWindowManager();
+                Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+                if(lp.x>(d.getWidth()-lp.width)) lp.x = (int)d.getWidth()-lp.width;
+                if(lp.y>(d.getHeight()-lp.height)) lp.x = (int)d.getHeight()-lp.height;
+                dialogWindow.setAttributes(lp);
+                break;
+            case MotionEvent.ACTION_UP:
+
+                break;
+        }
+
+
+        return true;//处理了触摸消息，消息不再传递
+
+      //  return super.onTouchEvent(event);
+
+
+    }
+
+    public void setActivity(Activity v){
+        parentActivity = v;
+    }
 
     public Double get4s5r(Double data, Integer c) {
         if(data!=0) {

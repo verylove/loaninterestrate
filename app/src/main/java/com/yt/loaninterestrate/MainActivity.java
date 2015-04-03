@@ -2,6 +2,8 @@ package com.yt.loaninterestrate;
 
 import java.util.Locale;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -10,33 +12,26 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.yt.loaninterestrate.activity.About;
 import com.yt.loaninterestrate.activity.AccumulationFund;
 import com.yt.loaninterestrate.activity.Busines;
 import com.yt.loaninterestrate.activity.Combination;
+import com.yt.loaninterestrate.activity.ExitDialog;
 
 
 public class MainActivity extends FragmentActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+    SectionsPagerAdapter mSectionsPagerAdapter;
     static ViewPager mViewPager;
 
     @Override
@@ -45,9 +40,9 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         // Set up the action bar.
-       // final ActionBar actionBar = getSupportActionBar();
-       // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-       // actionBar.setDisplayShowTitleEnabled(false);
+        // final ActionBar actionBar = getSupportActionBar();
+        // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        // actionBar.setDisplayShowTitleEnabled(false);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -62,13 +57,38 @@ public class MainActivity extends FragmentActivity {
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-            //    actionBar.setSelectedNavigationItem(position);
+                //    actionBar.setSelectedNavigationItem(position);
             }
         });
 
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            new AlertDialog.Builder(this).setTitle("确认退出吗？")
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+
+                        }
+                    })
+                    .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 点击“返回”后的操作,这里不设置没有任何操作
+                        }
+                    }).show();
+
+        }
+
+        return false;
+        //return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,9 +120,6 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-
-
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -117,7 +134,7 @@ public class MainActivity extends FragmentActivity {
         public Fragment getItem(int position) {
 
             Fragment ret = null;
-            switch(position){
+            switch (position) {
                 case 0:
                     ret = Main.newInstance("test1", "test2");
                     break;
@@ -131,10 +148,10 @@ public class MainActivity extends FragmentActivity {
                     ret = Combination.newInstance("test", "test");
                     break;
                 case 4:
-                    ret = About.newInstance("test","test");
+                    ret = About.newInstance("test", "test");
                     break;
                 default:
-                    Main.newInstance("test1","test2");
+                    Main.newInstance("test1", "test2");
             }
             return ret;
             //return PlaceholderFragment.newInstance(position + 1);
@@ -142,8 +159,7 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 4;
+            return 5;
         }
 
         @Override
@@ -162,6 +178,6 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    }
+}
 
 

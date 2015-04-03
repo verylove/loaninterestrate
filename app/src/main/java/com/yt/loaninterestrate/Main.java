@@ -73,7 +73,7 @@ public class Main extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mViewPager.setCurrentItem(1);
+                MainActivity.mViewPager.setCurrentItem(3);
             }
         });
 
@@ -82,7 +82,7 @@ public class Main extends Fragment {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mViewPager.setCurrentItem(2);
+                MainActivity.mViewPager.setCurrentItem(1);
             }
         });
 
@@ -91,7 +91,7 @@ public class Main extends Fragment {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mViewPager.setCurrentItem(3);
+                MainActivity.mViewPager.setCurrentItem(4);
             }
         });
 
@@ -100,7 +100,7 @@ public class Main extends Fragment {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mViewPager.setCurrentItem(4);
+                MainActivity.mViewPager.setCurrentItem(2);
             }
         });
         return v;

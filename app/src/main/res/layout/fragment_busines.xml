@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_body_padding"
+    android:padding="15dp"
     android:background="@drawable/bg"
     tools:context="com.yt.loaninterestrate.activity.Busines">
 
@@ -11,17 +11,17 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="left|top"
-        android:layout_marginBottom="15dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_gravity="top"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
 
             <ImageView
                 android:layout_gravity="center"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginLeft="90dp"
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
@@ -35,12 +35,12 @@
             android:padding="@dimen/activity_body_padding"
             android:background="@color/bodyBg"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/line_layout_height"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -61,7 +61,7 @@
                     <RadioButton
                         android:id="@+id/radiolimit"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:checked="true"
                         android:text="贷款额度"
                         android:textSize="20dp" />
@@ -69,7 +69,7 @@
                     <RadioButton
                         android:id="@+id/radioarea"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="按面积算"
                         android:textSize="20dp" />
                 </RadioGroup>
@@ -86,7 +86,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="@dimen/line_layout_height"
                     android:orientation="horizontal">
 
                     <TextView
@@ -106,7 +106,7 @@
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="元"
                         android:textSize="20dp" />
 
@@ -127,12 +127,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="@dimen/line_layout_height"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="平米单价"
                         android:textSize="20dp" />
 
@@ -140,12 +140,12 @@
                         android:id="@+id/editTextUnitPrice"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:ems="10"
+                        android:ems="15"
                         android:inputType="numberDecimal" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="元/平方"
                         android:textSize="20dp" />
 
@@ -153,20 +153,20 @@
 
 
                 <LinearLayout
+                    android:layout_height="@dimen/line_layout_height"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="面积"
+                        android:text="房子面积"
                         android:textSize="20dp" />
 
                     <EditText
                         android:id="@+id/editTextArea"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberDecimal" />
 
@@ -180,7 +180,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/line_layout_height"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
@@ -217,13 +217,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/line_layout_height"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="58dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="首付"
+                        android:text="房子首付"
                         android:textSize="20dp" />
 
                     <Spinner
@@ -239,11 +239,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/line_layout_height"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="贷款期限"
@@ -257,6 +256,23 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_layout_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="利率折扣"
+                    android:textSize="20dp" />
+
+                <Spinner
+                    android:spinnerMode="dialog"
+                    android:id="@+id/spinnerInterestRateSell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -265,7 +281,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="年利率"
+                    android:text="年  利  率"
                     android:textSize="20dp" />
 
                 <Spinner
@@ -291,11 +307,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <Button
+            <ImageButton
+                android:background="@drawable/all_resultbtn_press"
                 android:id="@+id/calculate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="计算"
+                />
+
+            <ImageButton
+                android:background="@drawable/all_resultbtn_press"
+                android:id="@+id/backindex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 />
 
             </LinearLayout>
