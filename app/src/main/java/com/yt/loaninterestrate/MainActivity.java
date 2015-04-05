@@ -1,9 +1,17 @@
 package com.yt.loaninterestrate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -26,6 +34,8 @@ import com.yt.loaninterestrate.activity.AccumulationFund;
 import com.yt.loaninterestrate.activity.Busines;
 import com.yt.loaninterestrate.activity.Combination;
 import com.yt.loaninterestrate.activity.ExitDialog;
+import com.yt.loaninterestrate.tools.DataBaseHelp;
+import com.yt.loaninterestrate.tools.InterestRate;
 
 
 public class MainActivity extends FragmentActivity {
@@ -33,6 +43,9 @@ public class MainActivity extends FragmentActivity {
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     static ViewPager mViewPager;
+
+    //年利率
+    public final static List<InterestRate> interestratess = new ArrayList<InterestRate>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +74,36 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
+        initRate();
+}
 
+
+    public void initRate(){
+
+        SQLiteDatabase db = new DataBaseHelp(getApplicationContext()).getReadableDatabase();
+        Cursor cursor = db.query("rate",null,null,null,null,null,"DATE DESC");
+        while(cursor.moveToNext()){
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+            Integer id = cursor.getInt(cursor.getColumnIndex("_id"));
+            Date date = null;
+            try {
+                date = df.parse(cursor.getString(cursor.getColumnIndex("date")));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Float mon6 = cursor.getFloat(cursor.getColumnIndex("mon6"));
+            Float year1 = cursor.getFloat(cursor.getColumnIndex("year1"));
+            Float year3 = cursor.getFloat(cursor.getColumnIndex("year3"));
+            Float yaer5 = cursor.getFloat(cursor.getColumnIndex("yaer5"));
+            Float more5 = cursor.getFloat(cursor.getColumnIndex("more5"));
+            Float yeardown5 = cursor.getFloat(cursor.getColumnIndex("yeardown5"));
+            Float yearup5 = cursor.getFloat(cursor.getColumnIndex("yearup5"));
+
+            InterestRate tmp = new InterestRate(id,date ,mon6,year1,year3,yaer5,more5,yeardown5,yearup5);
+            interestratess.add(tmp);
+            tmp = null;
+        }
     }
 
     @Override

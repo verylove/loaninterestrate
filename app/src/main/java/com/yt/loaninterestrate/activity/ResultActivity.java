@@ -3,16 +3,29 @@ package com.yt.loaninterestrate.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.yt.loaninterestrate.Calculate;
+import com.yt.loaninterestrate.tools.Calculate;
 import com.yt.loaninterestrate.R;
+import com.yt.loaninterestrate.tools.DataBaseHelp;
+import com.yt.loaninterestrate.tools.InterestRate;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Yang on 2015/4/2.
@@ -29,6 +42,10 @@ public class ResultActivity extends Dialog {
 
     private Point startPos,endPos;
 
+    private Button btnClose;
+
+
+
     public ResultActivity(Context context, int theme,double loanRate, double loanMoney, double loanYear) {
         super(context, theme);
         this.loanMoney = loanMoney;
@@ -41,6 +58,13 @@ public class ResultActivity extends Dialog {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_result);
 
+        btnClose = (Button)findViewById(R.id.btnClose);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         //处理显示数据
         textViewEvenMoney = (TextView) findViewById(R.id.textViewEvenMoney);
         textViewEvenMonth = (TextView) findViewById(R.id.textViewEvenMonth);
@@ -78,7 +102,10 @@ public class ResultActivity extends Dialog {
 
         startPos = new Point();
         endPos = new Point();
+
+
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -127,7 +154,7 @@ public class ResultActivity extends Dialog {
         parentActivity = v;
     }
 
-    public Double get4s5r(Double data, Integer c) {
+    public static Double get4s5r(Double data, Integer c) {
         if(data!=0) {
             data = new java.math.BigDecimal(Double.toString(data)).setScale(c, java.math.BigDecimal.ROUND_HALF_UP).doubleValue();
         }

@@ -40,6 +40,8 @@
 
         <Button
             android:text="返回"
+            android:id="@+id/btnClose"
+            android:background="#77FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

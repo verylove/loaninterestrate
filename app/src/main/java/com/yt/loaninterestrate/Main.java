@@ -1,6 +1,7 @@
 package com.yt.loaninterestrate;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import com.yt.loaninterestrate.tools.CheckUpdate;
 
 
 /**
@@ -19,6 +22,8 @@ import android.widget.ImageButton;
  * Use the {@link Main#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+
 public class Main extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +35,9 @@ public class Main extends Fragment {
     private String mParam2;
 
     private ImageButton btn1,btn2,btn3,btn4;
+
+    private static  ImageButton btnHome,btnPersion,btnUpdate,btnSetting;
+    public static Context context;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,6 +70,7 @@ public class Main extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        this.context = getActivity();
     }
 
     @Override
@@ -103,7 +112,31 @@ public class Main extends Fragment {
                 MainActivity.mViewPager.setCurrentItem(2);
             }
         });
+
+
+
         return v;
+    }
+
+    public static void initTool(View v){
+        btnHome = (ImageButton)v.findViewById(R.id.btnHome);
+        btnPersion = (ImageButton)v.findViewById(R.id.btnPersion);
+        btnUpdate  = (ImageButton)v.findViewById(R.id.btnUpdate);
+        btnSetting = (ImageButton)v.findViewById(R.id.btnSetting);
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mViewPager.setCurrentItem(0);
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckUpdate checkupdate = new CheckUpdate(context);
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

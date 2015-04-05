@@ -1,10 +1,12 @@
 package com.yt.loaninterestrate.activity;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,20 +15,25 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yt.loaninterestrate.Calculate;
+import com.yt.loaninterestrate.Main;
+import com.yt.loaninterestrate.MainActivity;
 import com.yt.loaninterestrate.R;
+import com.yt.loaninterestrate.tools.DataBaseHelp;
+import com.yt.loaninterestrate.tools.InterestRate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -88,6 +95,7 @@ public class Busines extends Fragment {
         View v = inflater.inflate(R.layout.fragment_busines, container, false);
 
         initData(v);
+        Main.initTool(v);
 
 
         //贷款年限
@@ -106,7 +114,7 @@ public class Busines extends Fragment {
         spinnerAgeLimit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), agelimitdatas.get(i).toString() + "", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), agelimitdatas.get(i).toString() + "", Toast.LENGTH_LONG).show();
                 //取到贷款年数
                 loanYear = agelimitdatas.get(i).key;
             }
@@ -117,33 +125,32 @@ public class Busines extends Fragment {
             }
         });
 
-        //年利率
-        final List<InterestRate> interestratess = new ArrayList<InterestRate>();
         //利率折扣
         final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
-
-        for (int i = 9; i > 0; i--) {
-            InterestRate tmp = new InterestRate(i, "201" + i + "年", i * 1.0);
-            interestratess.add(tmp);
+        //利率折扣
+        interestrateselldatas.add(new interestRateSellData(0,"不打折"));
+        for (int i=9;i>=1;i--){
+            interestRateSellData tmp = new interestRateSellData(i,i+"折");
+            interestrateselldatas.add(tmp);
             tmp = null;
         }
 
-        ArrayAdapter<InterestRate> adapterInterestRate = new ArrayAdapter<InterestRate>(getActivity(), android.R.layout.simple_spinner_item, interestratess);
+        ArrayAdapter<InterestRate> adapterInterestRate = new ArrayAdapter<InterestRate>(getActivity(), android.R.layout.simple_spinner_item, MainActivity.interestratess);
         adapterInterestRate.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinnerInterestRate.setAdapter(adapterInterestRate);
         spinnerInterestRate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                double tmp =  Double.parseDouble(interestrateselldatas.get(i).key.toString());
+                double tmp =  Double.parseDouble(interestrateselldatas.get(spinnerInterestRateSell.getSelectedItemPosition()).key.toString());
                 if(tmp==0){
-                    double tmp1 = interestratess.get(i).rate;
-                    editTextRate.setText((1*tmp1)+"");
+                    double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear);
+                    editTextRate.setText(ResultActivity.get4s5r(1*tmp1,2)+"");
                 }else{
-                    double tmp1 = interestratess.get(i).rate;
-                    editTextRate.setText((tmp*0.1*tmp1)+"");
+                    double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear);
+                    editTextRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
                 }
 
-               // Toast.makeText(getActivity(), interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(), MainActivity.interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -152,13 +159,7 @@ public class Busines extends Fragment {
             }
         });
 
-        //利率折扣
-        interestrateselldatas.add(new interestRateSellData(0,"不打折"));
-        for (int i=9;i>=1;i--){
-            interestRateSellData tmp = new interestRateSellData(i,i+"折");
-            interestrateselldatas.add(tmp);
-            tmp = null;
-        }
+
 
         ArrayAdapter<interestRateSellData> adapterInterestRateSell = new ArrayAdapter<interestRateSellData>(getActivity(),android.R.layout.simple_dropdown_item_1line,interestrateselldatas);
         adapterInterestRateSell.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -170,12 +171,12 @@ public class Busines extends Fragment {
 
                 if(i==0){
                     double tmp =  1;//不打折
-                    double tmp1 = interestratess.get(spinnerInterestRate.getSelectedItemPosition()).rate;
-                    editTextRate.setText((tmp*tmp1)+"");
+                    double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                    editTextRate.setText(ResultActivity.get4s5r(tmp*tmp1,2)+"");
                 }else{
                     double tmp =  Double.parseDouble(interestrateselldatas.get(i).key.toString());
-                    double tmp1 = interestratess.get(spinnerInterestRate.getSelectedItemPosition()).rate;
-                    editTextRate.setText((tmp*0.1*tmp1)+"");
+                    double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                    editTextRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
                 }
 
             }
@@ -199,7 +200,7 @@ public class Busines extends Fragment {
         spinnerDownPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), downpayments.get(i).toString() + "", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(), downpayments.get(i).toString() + "", Toast.LENGTH_LONG).show();
                 downPayment = downpayments.get(i).key;
             }
 
@@ -239,7 +240,8 @@ public class Busines extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (radioButtonAset.isChecked()) {
-                    Toast.makeText(getActivity(), "选择了一套", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "选择了一套", Toast.LENGTH_LONG).show();
+                    spinnerDownPayment.setSelection(1);
                 }
             }
         });
@@ -247,7 +249,10 @@ public class Busines extends Fragment {
         radioButtonTwoset.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Toast.makeText(getActivity(), "选择了二套", Toast.LENGTH_LONG).show();
+                if(radioButtonTwoset.isChecked()) {
+                    //Toast.makeText(getActivity(), "选择了二套", Toast.LENGTH_LONG).show();
+                    spinnerDownPayment.setSelection(4);
+                };
             }
         });
 
@@ -376,24 +381,8 @@ public class Busines extends Fragment {
 
     }
 
-    //贷款利率类
-    public class InterestRate {
-        public Integer id;
-        public String value;
-        public Double rate;
-
-        public InterestRate(Integer id, String value, Double rate) {
-            this.id = id;
-            this.value = value;
-            this.rate = rate;
-        }
-
-        public String toString() {
-            return value;
-        }
 
 
-    }
 
     //首付金额类
     public class DownPayment {

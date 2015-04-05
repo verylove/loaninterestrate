@@ -3,6 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="framelayout_padding">15dp</dimen>
+
     <dimen name="activity_body_padding">5dp</dimen>
     <dimen name="line_layout_height">35dp</dimen>
+    <dimen name="icon_body_padding">10dp</dimen>
+
+    <dimen name="main_tool_widthandheight">30dp</dimen>
 </resources>
