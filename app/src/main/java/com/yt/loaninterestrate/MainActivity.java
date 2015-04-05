@@ -38,6 +38,7 @@ import com.yt.loaninterestrate.tools.DataBaseHelp;
 import com.yt.loaninterestrate.tools.InterestRate;
 
 
+
 public class MainActivity extends FragmentActivity {
 
 

@@ -2,6 +2,7 @@ package com.yt.loaninterestrate;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.yt.loaninterestrate.activity.HelpActivity;
 import com.yt.loaninterestrate.tools.CheckUpdate;
 
 
@@ -113,7 +115,7 @@ public class Main extends Fragment {
             }
         });
 
-
+        initTool(v);
 
         return v;
     }
@@ -135,6 +137,14 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 CheckUpdate checkupdate = new CheckUpdate(context);
+            }
+        });
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context,HelpActivity.class));
+
             }
         });
     }

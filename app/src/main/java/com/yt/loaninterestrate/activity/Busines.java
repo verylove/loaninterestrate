@@ -36,10 +36,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-enum FormulaMode{
+enum  FormulaMode{
         MEONY,AREA
 }
+
 
 public class Busines extends Fragment {
 
@@ -60,7 +60,7 @@ public class Busines extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
-    private double loanMoney, loanYear, loanRate ,areaHouse, squareHouse;
+    private double loanMoney, loanYear, loanRate ,areaHouse, squareHouse, sellMoney;
 
     private Integer downPayment;
 
@@ -97,7 +97,8 @@ public class Busines extends Fragment {
         initData(v);
         Main.initTool(v);
 
-
+        //利率折扣
+        final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
         //贷款年限
         final List<AgeLimitData> agelimitdatas = new ArrayList<AgeLimitData>();
 
@@ -117,6 +118,15 @@ public class Busines extends Fragment {
                 //Toast.makeText(getActivity(), agelimitdatas.get(i).toString() + "", Toast.LENGTH_LONG).show();
                 //取到贷款年数
                 loanYear = agelimitdatas.get(i).key;
+                double tmp =  sellMoney;
+                if(tmp==0){
+                    double tmp1 =  MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                    editTextRate.setText(ResultActivity.get4s5r(1*tmp1,2)+"");
+                }else{
+                    double tmp1 =  MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                    editTextRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
+                }
+               // editTextRate.setText("");
             }
 
             @Override
@@ -125,8 +135,7 @@ public class Busines extends Fragment {
             }
         });
 
-        //利率折扣
-        final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
+
         //利率折扣
         interestrateselldatas.add(new interestRateSellData(0,"不打折"));
         for (int i=9;i>=1;i--){
@@ -138,10 +147,11 @@ public class Busines extends Fragment {
         ArrayAdapter<InterestRate> adapterInterestRate = new ArrayAdapter<InterestRate>(getActivity(), android.R.layout.simple_spinner_item, MainActivity.interestratess);
         adapterInterestRate.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinnerInterestRate.setAdapter(adapterInterestRate);
+        spinnerInterestRate.setSelection(0);
         spinnerInterestRate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                double tmp =  Double.parseDouble(interestrateselldatas.get(spinnerInterestRateSell.getSelectedItemPosition()).key.toString());
+                double tmp =  sellMoney;
                 if(tmp==0){
                     double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear);
                     editTextRate.setText(ResultActivity.get4s5r(1*tmp1,2)+"");
@@ -169,12 +179,13 @@ public class Busines extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                sellMoney =  Double.parseDouble(interestrateselldatas.get(i).key.toString());
                 if(i==0){
                     double tmp =  1;//不打折
                     double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
                     editTextRate.setText(ResultActivity.get4s5r(tmp*tmp1,2)+"");
                 }else{
-                    double tmp =  Double.parseDouble(interestrateselldatas.get(i).key.toString());
+                    double tmp =  sellMoney;
                     double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
                     editTextRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
                 }
@@ -195,6 +206,7 @@ public class Busines extends Fragment {
             tmp = null;
         }
         ArrayAdapter adapterDownPayment = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, downpayments);
+        adapterDownPayment.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinnerDownPayment.setAdapter(adapterDownPayment);
         spinnerDownPayment.setSelection(1);
         spinnerDownPayment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -342,6 +354,7 @@ public class Busines extends Fragment {
         loanMoney = 0.0;
         loanYear = 9;
         loanRate = 0.0;
+        sellMoney = 0;
 
         areaHouse = 0.0;
         downPayment = 3;
