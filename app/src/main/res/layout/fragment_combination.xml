@@ -2,10 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/framelayout_padding"
     android:background="@drawable/bg"
+    android:padding="@dimen/framelayout_padding"
     tools:context="com.yt.loaninterestrate.activity.Combination">
-
 
 
     <LinearLayout
@@ -15,228 +14,31 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_gravity="top"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
+            android:layout_gravity="top"
             android:layout_marginBottom="15dp">
 
             <ImageView
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="70dp"
+                android:id="@+id/imageView"
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView"
+                android:layout_gravity="center"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="12dp"
                 android:src="@drawable/title3" />
 
         </LinearLayout>
 
 
+        <!-- 公共控件 -->
+
         <LinearLayout
-            android:padding="@dimen/activity_body_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/bodyBg"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_layout_height"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="计算方式"
-                    android:textSize="20dp" />
-
-                <RadioGroup
-                    android:id="@+id/formulaMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-
-                    <RadioButton
-                        android:id="@+id/radiolimit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:checked="true"
-                        android:text="贷款额度"
-                        android:textSize="20dp" />
-
-                    <RadioButton
-                        android:id="@+id/radioarea"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="按面积算"
-                        android:textSize="20dp" />
-                </RadioGroup>
-
-            </LinearLayout>
-
-            <!-- 额度贷款控件部分 -->
-
-            <LinearLayout
-                android:id="@+id/layoutMoney"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_layout_height"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="贷款金额"
-                        android:textSize="20dp" />
-
-                    <EditText
-                        android:id="@+id/editTextLoanAmount"
-                        android:layout_width="100dp"
-                        android:text="10000"
-                        android:layout_height="match_parent"
-                        android:ems="10"
-                        android:inputType="numberDecimal" />
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="元"
-                        android:textSize="20dp" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <!-- 面积算控件部分 -->
-
-            <LinearLayout
-                android:id="@+id/layoutArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_layout_height"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="平米单价"
-                        android:textSize="20dp" />
-
-                    <EditText
-                        android:id="@+id/editTextUnitPrice"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:ems="15"
-                        android:inputType="numberDecimal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="元/平方"
-                        android:textSize="20dp" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_height="@dimen/line_layout_height"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="房子面积"
-                        android:textSize="20dp" />
-
-                    <EditText
-                        android:id="@+id/editTextArea"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="numberDecimal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="平方"
-                        android:textSize="20dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_layout_height"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="购房性质"
-                        android:textSize="20dp" />
-
-                    <RadioGroup
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-
-                        <RadioButton
-                            android:id="@+id/radioButtonAset"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="一套房"
-                            android:textSize="20dp" />
-
-                        <RadioButton
-                            android:id="@+id/radioButtonTwoSet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="二套房"
-                            android:textSize="20dp" />
-                    </RadioGroup>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/line_layout_height"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="房子首付"
-                        android:textSize="20dp" />
-
-                    <Spinner
-                        android:id="@+id/spinnerDownPayment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <!-- 公共控件 -->
+            android:padding="@dimen/activity_body_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -250,10 +52,106 @@
                     android:textSize="20dp" />
 
                 <Spinner
-                    android:spinnerMode="dialog"
                     android:id="@+id/spinnerAgeLimit"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp" />
+                    android:layout_height="20dp"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_layout_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公积金贷款金额"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextGJJLoanAmount"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:text="10000" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="元"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公积金贷款年利率"
+                    android:textSize="20dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerGJJInterestRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog" />
+
+                <EditText
+                    android:id="@+id/editTextGJJRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_layout_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商业贷款金额"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextSYLoanAmount"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:text="10000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="元"
+                    android:textSize="20dp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -264,15 +162,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="利率折扣"
+                    android:text="商业贷款利率折扣"
                     android:textSize="20dp" />
 
                 <Spinner
-                    android:spinnerMode="dialog"
                     android:id="@+id/spinnerInterestRateSell"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog" />
+
             </LinearLayout>
+
             <LinearLayout
 
                 android:layout_width="match_parent"
@@ -282,85 +182,94 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="年  利  率"
+                    android:text="商业贷款年利率"
                     android:textSize="20dp" />
 
-                <Spinner
-                    android:spinnerMode="dialog"
-                    android:id="@+id/spinnerInterestRate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-
-                <EditText
-                    android:ems="4"
-                    android:inputType="numberDecimal"
-                    android:id="@+id/editTextRate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerSYInterestRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dialog" />
+
+                <EditText
+                    android:id="@+id/editTextSYRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
+
             <ImageButton
-                android:background="@drawable/all_resultbtn_press"
                 android:id="@+id/calculate"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
-
-
+                android:layout_gravity="center"
+                android:background="@drawable/all_resultbtn_press" />
 
         </LinearLayout>
 
 
-
     </LinearLayout>
 
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_weight="2"
-        android:layout_gravity="bottom|center_vertical"
-        android:paddingLeft="65dp"
-        android:paddingBottom="25dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_vertical"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:paddingBottom="25dp"
+        android:paddingLeft="65dp">
 
         <ImageButton
             android:id="@+id/btnHome"
-            android:layout_margin="@dimen/icon_body_padding"
             android:layout_width="@dimen/main_tool_widthandheight"
             android:layout_height="@dimen/main_tool_widthandheight"
-            android:background="@drawable/btn_home_press"/>
+            android:layout_margin="@dimen/icon_body_padding"
+            android:background="@drawable/btn_home_press" />
 
         <ImageButton
             android:id="@+id/btnPersion"
-            android:layout_margin="@dimen/icon_body_padding"
             android:layout_width="@dimen/main_tool_widthandheight"
             android:layout_height="@dimen/main_tool_widthandheight"
-            android:background="@drawable/btn_persion_press"/>
+            android:layout_margin="@dimen/icon_body_padding"
+            android:background="@drawable/btn_persion_press" />
 
         <ImageButton
             android:id="@+id/btnUpdate"
-            android:layout_margin="@dimen/icon_body_padding"
             android:layout_width="@dimen/main_tool_widthandheight"
             android:layout_height="@dimen/main_tool_widthandheight"
-            android:background="@drawable/btn_update_press"/>
+            android:layout_margin="@dimen/icon_body_padding"
+            android:background="@drawable/btn_update_press" />
 
         <ImageButton
             android:id="@+id/btnSetting"
-            android:layout_margin="@dimen/icon_body_padding"
             android:layout_width="@dimen/main_tool_widthandheight"
             android:layout_height="@dimen/main_tool_widthandheight"
-            android:background="@drawable/btn_setting_press"/>
+            android:layout_margin="@dimen/icon_body_padding"
+            android:background="@drawable/btn_setting_press" />
 
     </LinearLayout>
 

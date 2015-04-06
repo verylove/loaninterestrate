@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class ResultActivity extends Dialog {
 
-    private double loanMoney, loanYear, loanRate ;
+    private double loanMoney, loanYear, loanRate ,loanGJJRate,loanGJJMoney;
 
     private TextView textViewDiminishingMoney, textViewDiminishingMonth, textViewDiminishingFristMonthMoney, textViewDiminishingOffMoney, textViewDiminishingInterestMoney, textViewDiminishingAllMoney;
 
@@ -44,6 +44,7 @@ public class ResultActivity extends Dialog {
 
     private Button btnClose;
 
+    private Boolean ZH = false;
 
 
     public ResultActivity(Context context, int theme,double loanRate, double loanMoney, double loanYear) {
@@ -51,6 +52,16 @@ public class ResultActivity extends Dialog {
         this.loanMoney = loanMoney;
         this.loanRate = loanRate;
         this.loanYear = loanYear;
+    }
+
+    public ResultActivity(Context context, int theme,double loanRate, double loanMoney,double loanGJJRate, double loanGJJMoney, double loanYear) {
+        super(context, theme);
+        this.loanMoney = loanMoney;
+        this.loanRate = loanRate;
+        this.loanYear = loanYear;
+        this.loanGJJMoney = loanGJJMoney;
+        this.loanGJJRate = loanGJJRate;
+        ZH = true;
     }
 
     @Override
@@ -80,26 +91,54 @@ public class ResultActivity extends Dialog {
         textViewDiminishingAllMoney = (TextView) findViewById(R.id.textViewDiminishingAllMoney);
 
 
-        Calculate t1 = new Calculate(loanRate, loanMoney, loanYear);
-        t1.evenMoney();
+        if(ZH==true){
+            Calculate t1 = new Calculate(loanRate, loanMoney, loanYear);
+            t1.evenMoney();
+            Calculate t11 = new Calculate(loanGJJRate, loanGJJMoney, loanYear);
+            t11.evenMoney();
 
-        //等息
-        textViewEvenMoney.setText(get4s5r(t1.loanAmount, 2) + "");
-        textViewEvenMonth.setText(get4s5r(t1.monthCount, 0) + "");
-        textViewEvenMonthMoney.setText(get4s5r(t1.repayMonthMoney, 2) + "");
-        textViewEvenInterestMoney.setText(get4s5r(t1.repayInterest, 2) + "");
-        textViewEvenAllMoney.setText(get4s5r(t1.repayAllMoney, 2) + "");
+            //等息
+            textViewEvenMoney.setText(get4s5r(t1.loanAmount+t11.loanAmount, 2) + "");
+            textViewEvenMonth.setText(get4s5r(t1.monthCount, 0) + "");
+            textViewEvenMonthMoney.setText(get4s5r(t1.repayMonthMoney+t11.repayMonthMoney, 2) + "");
+            textViewEvenInterestMoney.setText(get4s5r(t1.repayInterest+t11.repayInterest, 2) + "");
+            textViewEvenAllMoney.setText(get4s5r(t1.repayAllMoney+t11.repayAllMoney, 2) + "");
 
-        Calculate t2 = new Calculate(loanRate, loanMoney, loanYear);
-        t2.diminishingMoney();
-        //等金
-        textViewDiminishingMoney.setText(get4s5r(t2.loanAmount, 2) + "");
-        textViewDiminishingMonth.setText(get4s5r(t2.monthCount, 0) + "");
-        textViewDiminishingFristMonthMoney.setText(get4s5r(t2.returnAllMonth.get(0).doubleValue(), 2) + "");
-        textViewDiminishingOffMoney.setText(get4s5r(t2.repayLiminishing, 2) + "");
-        textViewDiminishingInterestMoney.setText(get4s5r(t2.repayInterest, 2) + "");
-        textViewDiminishingAllMoney.setText(get4s5r(t2.repayAllMoney, 2) + "");
+            Calculate t2 = new Calculate(loanRate, loanMoney, loanYear);
+            t2.diminishingMoney();
+            Calculate t22 = new Calculate(loanGJJRate, loanGJJMoney, loanYear);
+            t22.diminishingMoney();
+            //等金
+            textViewDiminishingMoney.setText(get4s5r(t2.loanAmount+t22.loanAmount, 2) + "");
+            textViewDiminishingMonth.setText(get4s5r(t2.monthCount, 0) + "");
+            textViewDiminishingFristMonthMoney.setText(get4s5r(t2.returnAllMonth.get(0).doubleValue()+t22.returnAllMonth.get(0).doubleValue(), 2) + "");
+            textViewDiminishingOffMoney.setText(get4s5r(t2.repayLiminishing+t22.repayLiminishing, 2) + "");
+            textViewDiminishingInterestMoney.setText(get4s5r(t2.repayInterest+t22.repayInterest, 2) + "");
+            textViewDiminishingAllMoney.setText(get4s5r(t2.repayAllMoney+t22.repayAllMoney, 2) + "");
+        }else {
 
+
+            Calculate t1 = new Calculate(loanRate, loanMoney, loanYear);
+            t1.evenMoney();
+
+            //等息
+            textViewEvenMoney.setText(get4s5r(t1.loanAmount, 2) + "");
+            textViewEvenMonth.setText(get4s5r(t1.monthCount, 0) + "");
+            textViewEvenMonthMoney.setText(get4s5r(t1.repayMonthMoney, 2) + "");
+            textViewEvenInterestMoney.setText(get4s5r(t1.repayInterest, 2) + "");
+            textViewEvenAllMoney.setText(get4s5r(t1.repayAllMoney, 2) + "");
+
+            Calculate t2 = new Calculate(loanRate, loanMoney, loanYear);
+            t2.diminishingMoney();
+            //等金
+            textViewDiminishingMoney.setText(get4s5r(t2.loanAmount, 2) + "");
+            textViewDiminishingMonth.setText(get4s5r(t2.monthCount, 0) + "");
+            textViewDiminishingFristMonthMoney.setText(get4s5r(t2.returnAllMonth.get(0).doubleValue(), 2) + "");
+            textViewDiminishingOffMoney.setText(get4s5r(t2.repayLiminishing, 2) + "");
+            textViewDiminishingInterestMoney.setText(get4s5r(t2.repayInterest, 2) + "");
+            textViewDiminishingAllMoney.setText(get4s5r(t2.repayAllMoney, 2) + "");
+
+        }
         startPos = new Point();
         endPos = new Point();
 
