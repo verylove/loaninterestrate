@@ -1,4 +1,5 @@
 <resources>
+    <style name="AppBaseTheme" parent="android:Theme"></style>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -42,5 +43,11 @@
     </style>
 
     <color name="bodyBg" >#77FFFFFF </color>
+
+    <style name="ActionBarStyle" parent="Base.V11.Theme.AppCompat.Light" >
+        <item name="android:background">@drawable/selected_background</item>
+
+
+    </style>
 
 </resources>

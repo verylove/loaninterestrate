@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/Base.V11.Theme.AppCompat.Light"
+            android:theme="@style/ActionBarStyle"
             android:name=".activity.HelpActivity"
             android:label="@string/title_activity_help" >
         </activity>

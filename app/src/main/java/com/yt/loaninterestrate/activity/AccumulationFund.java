@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.yt.loaninterestrate.Main;
 import com.yt.loaninterestrate.MainActivity;
 import com.yt.loaninterestrate.R;
 import com.yt.loaninterestrate.tools.InterestRate;
@@ -96,6 +97,7 @@ public class AccumulationFund extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_accumulation_fund, container, false);
         initData(v);
+        Main.initTool(v);
 
         //贷款年限
         final List<AgeLimitData> agelimitdatas = new ArrayList<AgeLimitData>();

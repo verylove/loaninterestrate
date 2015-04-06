@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yt.loaninterestrate.Main;
 import com.yt.loaninterestrate.R;
 
 
@@ -65,8 +66,9 @@ public class Combination extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_combination, container, false);
+         View v =inflater.inflate(R.layout.fragment_combination, container, false);
+               Main.initTool(v);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
