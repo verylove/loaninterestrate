@@ -119,14 +119,16 @@ public class Busines extends Fragment {
                 //取到贷款年数
                 loanYear = agelimitdatas.get(i).key;
                 double tmp =  sellMoney;
-                if(tmp==0){
-                    double tmp1 =  MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                    editTextRate.setText(ResultActivity.get4s5r(1*tmp1,2)+"");
-                }else{
-                    double tmp1 =  MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                    editTextRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
+                if(spinnerInterestRate.getSelectedItemPosition()!=-1) {
+                    if (tmp == 0) {
+                        double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                        editTextRate.setText(ResultActivity.get4s5r(1 * tmp1, 2) + "");
+                    } else {
+                        double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                        editTextRate.setText(ResultActivity.get4s5r(tmp * 0.1 * tmp1, 2) + "");
+                    }
                 }
-               // editTextRate.setText("");
+
             }
 
             @Override
@@ -180,14 +182,16 @@ public class Busines extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 sellMoney =  Double.parseDouble(interestrateselldatas.get(i).key.toString());
-                if(i==0){
-                    double tmp =  1;//不打折
-                    double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                    editTextRate.setText(ResultActivity.get4s5r(tmp*tmp1,2)+"");
-                }else{
-                    double tmp =  sellMoney;
-                    double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                    editTextRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
+                if(spinnerInterestRate.getSelectedItemPosition()!=-1) {
+                    if (i == 0) {
+                        double tmp = 1;//不打折
+                        double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                        editTextRate.setText(ResultActivity.get4s5r(tmp * tmp1, 2) + "");
+                    } else {
+                        double tmp = sellMoney;
+                        double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
+                        editTextRate.setText(ResultActivity.get4s5r(tmp * 0.1 * tmp1, 2) + "");
+                    }
                 }
 
             }

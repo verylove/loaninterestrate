@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,11 +30,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.yt.loaninterestrate.activity.About;
+import com.yt.loaninterestrate.activity.Tax;
 import com.yt.loaninterestrate.activity.AccumulationFund;
 import com.yt.loaninterestrate.activity.Busines;
 import com.yt.loaninterestrate.activity.Combination;
 import com.yt.loaninterestrate.activity.ExitDialog;
+import com.yt.loaninterestrate.activity.Init;
+import com.yt.loaninterestrate.tools.CheckUpdate;
 import com.yt.loaninterestrate.tools.DataBaseHelp;
 import com.yt.loaninterestrate.tools.InterestRate;
 
@@ -43,7 +46,7 @@ public class MainActivity extends FragmentActivity {
 
 
     SectionsPagerAdapter mSectionsPagerAdapter;
-    static ViewPager mViewPager;
+    public static ViewPager mViewPager;
 
     //年利率
     public final static List<InterestRate> interestratess = new ArrayList<InterestRate>();
@@ -53,29 +56,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set up the action bar.
-        // final ActionBar actionBar = getSupportActionBar();
-        // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        // actionBar.setDisplayShowTitleEnabled(false);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // a reference to the Tab.
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                //    actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
         initRate();
+
 }
 
 
@@ -105,6 +87,22 @@ public class MainActivity extends FragmentActivity {
             interestratess.add(tmp);
             tmp = null;
         }
+
+        if(MainActivity.interestratess.isEmpty()){
+           CheckUpdate ck = new CheckUpdate(this,true);
+        }else{
+            initTab();
+        }
+
+
+    }
+
+    public void initTab(){
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(0);
     }
 
     @Override
@@ -175,26 +173,33 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-
             Fragment ret = null;
+            if( MainActivity.interestratess.isEmpty()){
+                return Init.newInstance("test1", "test2");
+            }else{
+                position = position + 1;
+            }
             switch (position) {
                 case 0:
-                    ret = Main.newInstance("test1", "test2");
+                    ret = Init.newInstance("test1", "test2");
                     break;
                 case 1:
-                    ret = Busines.newInstance("test1", "test2");
+                    ret = Main.newInstance("test1", "test2");
                     break;
                 case 2:
-                    ret = AccumulationFund.newInstance("test", "test");
+                     ret = Busines.newInstance("test1", "test2");
                     break;
                 case 3:
-                    ret = Combination.newInstance("test", "test");
+                    ret = AccumulationFund.newInstance("test", "test");
                     break;
                 case 4:
-                    ret = About.newInstance("test", "test");
+                    ret = Combination.newInstance("test", "test");
+                    break;
+                case 5:
+                    ret = Tax.newInstance("test", "test");
                     break;
                 default:
-                    Main.newInstance("test1", "test2");
+                    ret = Main.newInstance("test1", "test2");
             }
             return ret;
             //return PlaceholderFragment.newInstance(position + 1);
@@ -202,7 +207,11 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            if(MainActivity.interestratess.isEmpty()) {
+                return 6;
+            }else{
+                return 5;
+            }
         }
 
         @Override

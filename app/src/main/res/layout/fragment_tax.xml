@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/framelayout_padding"
     android:background="@drawable/bg"
-    tools:context="com.yt.loaninterestrate.activity.Combination">
+    android:padding="@dimen/framelayout_padding"
+    tools:context="com.yt.loaninterestrate.activity.About">
 
 
 
@@ -27,7 +27,7 @@
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView"
-                android:src="@drawable/title3" />
+                android:src="@drawable/title4" />
 
         </LinearLayout>
 
@@ -60,27 +60,83 @@
 
 
                     <RadioButton
-                        android:id="@+id/radiolimit"
+                        android:id="@+id/radioold"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:checked="true"
-                        android:text="贷款额度"
+                        android:text="二手房"
                         android:textSize="20dp" />
 
                     <RadioButton
-                        android:id="@+id/radioarea"
+                        android:id="@+id/radionew"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="按面积算"
+                        android:text="新房"
                         android:textSize="20dp" />
                 </RadioGroup>
 
             </LinearLayout>
 
-            <!-- 额度贷款控件部分 -->
+
+            <!-- 公共控件 -->
+
 
             <LinearLayout
-                android:id="@+id/layoutMoney"
+                android:layout_height="@dimen/line_layout_height"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房子面积"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextArea"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="平方"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_layout_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="平米单价"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/editTextUnitPrice"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:ems="15"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="元/平方"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+
+            <!-- 二手房控件部分 -->
+
+            <LinearLayout
+                android:id="@+id/layoutOld"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -93,11 +149,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="贷款金额"
+                        android:text="房子总价"
                         android:textSize="20dp" />
 
                     <EditText
-                        android:id="@+id/editTextLoanAmount"
+                        android:id="@+id/editTextAllPrice"
                         android:layout_width="100dp"
                         android:text="10000"
                         android:layout_height="match_parent"
@@ -114,68 +170,39 @@
                 </LinearLayout>
 
 
-            </LinearLayout>
-
-            <!-- 面积算控件部分 -->
-
-            <LinearLayout
-                android:id="@+id/layoutArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/line_layout_height"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="平米单价"
-                        android:textSize="20dp" />
-
-                    <EditText
-                        android:id="@+id/editTextUnitPrice"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:ems="15"
-                        android:inputType="numberDecimal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="元/平方"
-                        android:textSize="20dp" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_height="@dimen/line_layout_height"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="房子面积"
+                        android:text="计征方式"
                         android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/editTextArea"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="numberDecimal" />
-
-                    <TextView
+                    <RadioGroup
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="平方"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+
+                        <RadioButton
+                            android:id="@+id/radioButtonTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="总价"
+                            android:textSize="20dp" />
+
+                        <RadioButton
+                            android:id="@+id/radioButtonDiff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="差价"
+                            android:textSize="20dp" />
+                    </RadioGroup>
 
                 </LinearLayout>
 
@@ -188,10 +215,56 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="购房性质"
+                        android:text="房子原价"
                         android:textSize="20dp" />
 
+                    <EditText
+                        android:id="@+id/editTextaGoAllPrice"
+                        android:layout_width="100dp"
+                        android:text="10000"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:inputType="numberDecimal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="元"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_layout_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="房子性质"
+                        android:textSize="20dp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerHouseType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_layout_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="      房子购置满5年"
+                        android:textSize="20dp" />
+
+
                     <RadioGroup
+                        android:id="@+id/HouseMare5"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -199,17 +272,56 @@
 
 
                         <RadioButton
-                            android:id="@+id/radioButtonAset"
+                            android:id="@+id/radioYes5"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="一套房"
+                            android:layout_height="match_parent"
+                            android:checked="true"
+                            android:text="是"
                             android:textSize="20dp" />
 
                         <RadioButton
-                            android:id="@+id/radioButtonTwoSet"
+                            android:id="@+id/radioNo5"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="二套房"
+                            android:layout_height="match_parent"
+                            android:text="否"
+                            android:textSize="20dp" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_layout_height"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="买方家庭首次购房"
+                        android:textSize="20dp" />
+
+
+                    <RadioGroup
+                        android:id="@+id/MaiFristHouse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+
+                        <RadioButton
+                            android:id="@+id/radioYes1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:checked="true"
+                            android:text="是"
+                            android:textSize="20dp" />
+
+                        <RadioButton
+                            android:id="@+id/radioNo1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="否"
                             android:textSize="20dp" />
                     </RadioGroup>
 
@@ -224,80 +336,41 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="房子首付"
+                        android:text="卖房家庭唯一住房"
                         android:textSize="20dp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerDownPayment"
+
+                    <RadioGroup
+                        android:id="@+id/SellOnly1"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+
+                        <RadioButton
+                            android:id="@+id/radioYesOnly"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:checked="true"
+                            android:text="是"
+                            android:textSize="20dp" />
+
+                        <RadioButton
+                            android:id="@+id/radioNoOnly"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="否"
+                            android:textSize="20dp" />
+                    </RadioGroup>
+
                 </LinearLayout>
 
 
+
             </LinearLayout>
 
-            <!-- 公共控件 -->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_layout_height"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="贷款期限"
-                    android:textSize="20dp" />
-
-                <Spinner
-                    android:spinnerMode="dialog"
-                    android:id="@+id/spinnerAgeLimit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_layout_height"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="利率折扣"
-                    android:textSize="20dp" />
-
-                <Spinner
-                    android:spinnerMode="dialog"
-                    android:id="@+id/spinnerInterestRateSell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="年  利  率"
-                    android:textSize="20dp" />
-
-                <Spinner
-                    android:spinnerMode="dialog"
-                    android:id="@+id/spinnerInterestRate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-
-                <EditText
-                    android:ems="4"
-                    android:inputType="numberDecimal"
-                    android:id="@+id/editTextRate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
 
         </LinearLayout>
@@ -363,5 +436,4 @@
             android:background="@drawable/btn_setting_press"/>
 
     </LinearLayout>
-
 </FrameLayout>

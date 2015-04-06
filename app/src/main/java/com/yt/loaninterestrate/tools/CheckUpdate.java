@@ -19,6 +19,8 @@ import java.net.URL;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.yt.loaninterestrate.MainActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,11 +40,42 @@ import static java.lang.Thread.sleep;
 public class CheckUpdate {
     private Context context;
     private ProgressDialog dialog;
+    static private Boolean init;
 
-    public CheckUpdate(Context context){
+    public  CheckUpdate(Context context){
+        new  CheckUpdate(context, false);
+    }
+
+    public CheckUpdate(final Context context ,Boolean init){
         this.context = context;
+        this.init = init;
+
+        Network network = new Network();
+        if(!network.isNetworkConnected(context)){
+            if(this.init) {
+
+                Toast.makeText(context, "请检查网络连接,初始化失败", Toast.LENGTH_LONG).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((MainActivity)context).finish();
+                    }
+                },3000);
+
+                return;
+            }else{
+                Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
         dialog = new ProgressDialog(context);
-        dialog.setMessage("检查最新利率中...");
+        if(!this.init) {
+            dialog.setMessage("检查最新利率...");
+        }else{
+            dialog.setMessage("正在初始化...");
+        }
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(true);
         dialog.setIndeterminate(true);
@@ -50,11 +83,11 @@ public class CheckUpdate {
         dialog.show();
 
         checkVersion();
-
     }
 
+
     public void downRate(){
-        dialog.setMessage("更新利率中...");
+        dialog.setMessage("更新到最新利率...");
         dialog.show();
         new Thread(new Runnable() {
             @Override
@@ -72,6 +105,7 @@ public class CheckUpdate {
                 Message msg = new Message();
                 Bundle data = new Bundle();
                 data.putString("result", str);
+                data.putBoolean("isInit",init);
                 msg.setData(data);
                 handlerData.sendMessage(msg);
             }
@@ -96,6 +130,7 @@ public class CheckUpdate {
                 Message msg = new Message();
                 Bundle data = new Bundle();
                 data.putString("result", str);
+                data.putBoolean("isInit",init);
                 msg.setData(data);
                 handler.sendMessage(msg);
             }
@@ -111,6 +146,7 @@ public class CheckUpdate {
             // 处理UI
             Bundle bundle = msg.getData();
             String str = bundle.getString("result");
+            Boolean init = bundle.getBoolean("isInit");
             if (dialog.isShowing())
                 dialog.dismiss();
 
@@ -140,7 +176,10 @@ public class CheckUpdate {
 
             dialog.dismiss();
             Toast.makeText(context,"最新利率更新成功",Toast.LENGTH_LONG).show();
-
+            if(init){
+                ((MainActivity)context).initRate();
+                ((MainActivity)context).initTab();
+            }
         }
     };
 
@@ -153,6 +192,7 @@ public class CheckUpdate {
             // 处理UI
             Bundle bundle = msg.getData();
             String str = bundle.getString("result");
+            Boolean init = bundle.getBoolean("isInit");
             if (dialog.isShowing())
                 dialog.hide();
 
