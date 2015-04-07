@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="贷款期限"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
                     <Spinner
                         android:id="@+id/spinnerAgeLimit"

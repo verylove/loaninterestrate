@@ -10,5 +10,5 @@
     <dimen name="icon_body_padding">10dp</dimen>
 
     <dimen name="main_tool_widthandheight">30dp</dimen>
-
+    <dimen name="Text_size">20dp</dimen>
 </resources>
