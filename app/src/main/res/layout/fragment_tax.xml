@@ -32,6 +32,14 @@
         </LinearLayout>
 
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
         <LinearLayout
             android:padding="@dimen/activity_body_padding"
             android:background="@color/bodyBg"
@@ -375,8 +383,6 @@
 
         </LinearLayout>
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -393,8 +399,8 @@
 
 
         </LinearLayout>
-
-
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

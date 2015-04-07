@@ -62,8 +62,8 @@ public class MainActivity extends FragmentActivity {
 
 
     public void initRate(){
-
-        SQLiteDatabase db = new DataBaseHelp(getApplicationContext()).getReadableDatabase();
+        DataBaseHelp dbh = new DataBaseHelp(getApplicationContext());
+        SQLiteDatabase db = dbh.getReadableDatabase();
         Cursor cursor = db.query("rate",null,null,null,null,null,"DATE DESC");
         while(cursor.moveToNext()){
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -87,6 +87,9 @@ public class MainActivity extends FragmentActivity {
             interestratess.add(tmp);
             tmp = null;
         }
+        cursor.close();
+        db.close();
+        dbh.close();
 
         if(MainActivity.interestratess.isEmpty()){
            CheckUpdate ck = new CheckUpdate(this,true);
