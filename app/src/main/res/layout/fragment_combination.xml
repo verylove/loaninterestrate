@@ -75,13 +75,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="公积金贷款金额"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
                     <EditText
                         android:id="@+id/editTextGJJLoanAmount"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:ems="10"
+                        android:textSize="@dimen/Text_Edit_size"
                         android:inputType="numberDecimal"
                         android:text="10000" />
 
@@ -90,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="元"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
                 </LinearLayout>
 
@@ -105,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="公积金贷款利率"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
 
                     <Spinner
@@ -117,6 +118,7 @@
                     <EditText
                         android:id="@+id/editTextGJJRate"
                         android:layout_width="50dp"
+                        android:textSize="@dimen/Text_Edit_size"
                         android:layout_height="wrap_content"
                         android:ems="4"
                         android:inputType="numberDecimal" />
@@ -124,6 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/Text_size"
                         android:text="%" />
                 </LinearLayout>
 
@@ -138,12 +141,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="商业贷款金额"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
                     <EditText
                         android:id="@+id/editTextSYLoanAmount"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
+                        android:textSize="@dimen/Text_Edit_size"
                         android:ems="10"
                         android:inputType="numberDecimal"
                         android:text="10000" />
@@ -152,7 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="元"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
                 </LinearLayout>
 
@@ -165,12 +169,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="商业贷款利率折扣"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
                     <Spinner
                         android:id="@+id/spinnerInterestRateSell"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="20dp"
                         android:spinnerMode="dialog" />
 
                 </LinearLayout>
@@ -185,7 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="商业贷款利率"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/Text_size" />
 
                     <Spinner
                         android:id="@+id/spinnerSYInterestRate"
@@ -196,6 +200,7 @@
                     <EditText
                         android:id="@+id/editTextSYRate"
                         android:layout_width="45dp"
+                        android:textSize="@dimen/Text_Edit_size"
                         android:layout_height="wrap_content"
                         android:ems="4"
                         android:inputType="numberDecimal" />
@@ -203,6 +208,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/Text_size"
                         android:text="%" />
                 </LinearLayout>
 

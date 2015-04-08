@@ -173,7 +173,7 @@ public class Busines extends Fragment {
 
 
 
-        ArrayAdapter<interestRateSellData> adapterInterestRateSell = new ArrayAdapter<interestRateSellData>(getActivity(),android.R.layout.simple_dropdown_item_1line,interestrateselldatas);
+        ArrayAdapter<interestRateSellData> adapterInterestRateSell = new ArrayAdapter<interestRateSellData>(getActivity(),android.R.layout.simple_spinner_item,interestrateselldatas);
         adapterInterestRateSell.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spinnerInterestRateSell.setAdapter(adapterInterestRateSell);
         spinnerInterestRateSell.setSelection(0);

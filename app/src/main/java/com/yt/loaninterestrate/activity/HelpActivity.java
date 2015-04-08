@@ -53,7 +53,7 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(false);
-       // actionBar.setBackgroundDrawable(getResources().getDrawable(R.style.ActionBarStyle));
+        // actionBar.setBackgroundDrawable(getResources().getDrawable(R.style.ActionBarStyle));
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
