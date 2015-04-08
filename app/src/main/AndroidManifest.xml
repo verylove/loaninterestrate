@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yt.loaninterestrate" android:versionCode="1"  android:versionName="1.0">
+    package="com.yt.loaninterestrate"
+    android:versionCode="1"
+    android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true" />
-
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -23,9 +28,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/ActionBarStyle"
             android:name=".activity.HelpActivity"
-            android:label="@string/title_activity_help" >
+            android:label="@string/title_activity_help"
+            android:theme="@style/ActionBarStyle" >
+        </activity>
+        <activity
+            android:name=".activity_ResultTax"
+            android:label="@string/title_activity_activity__result_tax" >
+        </activity>
+        <activity
+            android:name=".activity.ResultTax"
+            android:label="@string/title_activity_result_tax" >
         </activity>
     </application>
 
