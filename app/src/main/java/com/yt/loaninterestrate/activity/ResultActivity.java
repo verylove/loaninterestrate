@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -156,45 +157,54 @@ public class ResultActivity extends Dialog {
 
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            if(HiddenPart!=null) HiddenPart.setVisibility(View.VISIBLE);
+        }
+        return super.onKeyDown(keyCode, event);
+
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        Window dialogWindow = this.getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-
-
-        int x = (int)event.getX();
-        int y = (int)event.getY();;
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                startPos.x = x;
-                startPos.y = y;
-                break;
-            case MotionEvent.ACTION_MOVE:
-
-                endPos.x = x;
-                endPos.y = y;
-                lp.x += endPos.x - startPos.x;
-                lp.y += endPos.y - startPos.y;
-
-                if(lp.x<0) lp.x = 0;
-                if(lp.y<0) lp.y = 0;
-
-                WindowManager m =   parentActivity.getWindowManager();
-                Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
-                if(lp.x>(d.getWidth()-lp.width)) lp.x = (int)d.getWidth()-lp.width;
-                if(lp.y>(d.getHeight()-lp.height)) lp.x = (int)d.getHeight()-lp.height;
-                dialogWindow.setAttributes(lp);
-                break;
-            case MotionEvent.ACTION_UP:
-
-                break;
-        }
-
-
+//        Window dialogWindow = this.getWindow();
+//        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+//
+//
+//        int x = (int)event.getX();
+//        int y = (int)event.getY();;
+//        switch(event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                startPos.x = x;
+//                startPos.y = y;
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//
+//                endPos.x = x;
+//                endPos.y = y;
+//                lp.x += endPos.x - startPos.x;
+//                lp.y += endPos.y - startPos.y;
+//
+//                if(lp.x<0) lp.x = 0;
+//                if(lp.y<0) lp.y = 0;
+//
+//                WindowManager m =   parentActivity.getWindowManager();
+//                Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+//                if(lp.x>(d.getWidth()-lp.width)) lp.x = (int)d.getWidth()-lp.width;
+//                if(lp.y>(d.getHeight()-lp.height)) lp.x = (int)d.getHeight()-lp.height;
+//                dialogWindow.setAttributes(lp);
+//                break;
+//            case MotionEvent.ACTION_UP:
+//
+//                break;
+//        }
+//
+//
         return true;//处理了触摸消息，消息不再传递
-
-      //  return super.onTouchEvent(event);
-
+//
+//      //  return super.onTouchEvent(event);
+//
 
     }
 

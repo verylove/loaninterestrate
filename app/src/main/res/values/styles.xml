@@ -44,7 +44,7 @@
 
     <color name="bodyBg" >#77FFFFFF </color>
 
-    <style name="ActionBarStyle" parent="Base.V11.Theme.AppCompat.Light" >
+    <style name="ActionBarStyle" parent="Theme.AppCompat.Light" >
         <item name="android:background">@drawable/selected_background</item>
 
 

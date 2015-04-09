@@ -66,6 +66,7 @@ public class CheckUpdate {
                 return;
             }else{
                 Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG).show();
+                return ;
             }
         }
 

@@ -33,10 +33,6 @@
             android:theme="@style/ActionBarStyle" >
         </activity>
         <activity
-            android:name=".activity_ResultTax"
-            android:label="@string/title_activity_activity__result_tax" >
-        </activity>
-        <activity
             android:name=".activity.ResultTax"
             android:label="@string/title_activity_result_tax" >
         </activity>
