@@ -14,18 +14,18 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:background="@color/bodyBg"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_gravity="top"
             android:layout_marginBottom="15dp">
 
             <ImageView
+                android:layout_weight="1"
                 android:id="@+id/imageView"
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="12dp"
                 android:src="@drawable/title3" />
 
         </LinearLayout>
@@ -33,7 +33,13 @@
 
         <!-- 公共控件 -->
 
+        <LinearLayout
+            android:id="@+id/HiddenPart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <ScrollView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -67,6 +73,21 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/Text_size"
+                        android:text="--- 公积金 ---"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/line_layout_height"
                     android:orientation="horizontal">
@@ -74,7 +95,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="公积金贷款金额"
+                        android:text="贷款金额"
                         android:textSize="@dimen/Text_size" />
 
                     <EditText
@@ -105,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="公积金贷款利率"
+                        android:text="贷款利率"
                         android:textSize="@dimen/Text_size" />
 
 
@@ -131,6 +152,20 @@
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/Text_size"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:text="--- 商业贷款 ---"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,7 +175,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="商业贷款金额"
+                        android:text="贷款金额"
                         android:textSize="@dimen/Text_size" />
 
                     <EditText
@@ -168,7 +203,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="商业贷款利率折扣"
+                        android:text="利率折扣"
                         android:textSize="@dimen/Text_size" />
 
                     <Spinner
@@ -188,7 +223,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="商业贷款利率"
+                        android:text="贷款利率"
                         android:textSize="@dimen/Text_size" />
 
                     <Spinner
@@ -234,48 +269,10 @@
             </LinearLayout>
 
         </ScrollView>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_vertical"
-        android:layout_weight="2"
-        android:orientation="horizontal"
-        android:paddingBottom="25dp"
-        android:paddingLeft="65dp">
-
-        <ImageButton
-            android:id="@+id/btnHome"
-            android:layout_width="@dimen/main_tool_widthandheight"
-            android:layout_height="@dimen/main_tool_widthandheight"
-            android:layout_margin="@dimen/icon_body_padding"
-            android:background="@drawable/btn_home_press" />
-
-        <ImageButton
-            android:id="@+id/btnPersion"
-            android:layout_width="@dimen/main_tool_widthandheight"
-            android:layout_height="@dimen/main_tool_widthandheight"
-            android:layout_margin="@dimen/icon_body_padding"
-            android:background="@drawable/btn_persion_press" />
-
-        <ImageButton
-            android:id="@+id/btnUpdate"
-            android:layout_width="@dimen/main_tool_widthandheight"
-            android:layout_height="@dimen/main_tool_widthandheight"
-            android:layout_margin="@dimen/icon_body_padding"
-            android:background="@drawable/btn_update_press" />
-
-        <ImageButton
-            android:id="@+id/btnSetting"
-            android:layout_width="@dimen/main_tool_widthandheight"
-            android:layout_height="@dimen/main_tool_widthandheight"
-            android:layout_margin="@dimen/icon_body_padding"
-            android:background="@drawable/btn_setting_press" />
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
 </FrameLayout>

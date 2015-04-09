@@ -58,13 +58,13 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int screenWidth = getWindowManager().getDefaultDisplay().getWidth();//真实分辨率 宽
-        int screenHeight = getWindowManager().getDefaultDisplay().getHeight();//真实分辨率 高
+       // int screenWidth = getWindowManager().getDefaultDisplay().getWidth();//真实分辨率 宽
+       // int screenHeight = getWindowManager().getDefaultDisplay().getHeight();//真实分辨率 高
 
-        DisplayMetrics dm = new DisplayMetrics();
-        dm = getResources().getDisplayMetrics();
-        int densityDPI = dm.densityDpi;     // 屏幕密度（每寸像素：120(ldpi)/160(mdpi)/213(tvdpi)/240(hdpi)/320(xhdpi)）
-        Toast.makeText(this, "真实分辨率：" + screenWidth + "*" + screenHeight + "  每英寸:" + densityDPI, Toast.LENGTH_LONG).show();
+        //DisplayMetrics dm = new DisplayMetrics();
+        //dm = getResources().getDisplayMetrics();
+       // int densityDPI = dm.densityDpi;     // 屏幕密度（每寸像素：120(ldpi)/160(mdpi)/213(tvdpi)/240(hdpi)/320(xhdpi)）
+       // Toast.makeText(this, "真实分辨率：" + screenWidth + "*" + screenHeight + "  每英寸:" + densityDPI, Toast.LENGTH_LONG).show();
 
         initRate();
 

@@ -93,7 +93,7 @@ public class Tax extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tax, container, false);
-        Main.initTool(v);
+       // Main.initTool(v);
         initData(v);
 
         radioOld.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -51,6 +51,7 @@ public class Combination extends Fragment {
     private Spinner spinnerAgeLimit, spinnerSYInterestRate,spinnerGJJInterestRate,spinnerInterestRateSell;
     private EditText editTextSYLoanAmount, editTextSYRate,editTextGJJLoanAmount, editTextGJJRate;
     private ImageButton buttonCalculate;
+    private LinearLayout HiddenPart;
 
     private double loanSYMoney,loanGJJMoney, loanYear, loanSYRate ,loanGJJRate , sellMoney;
 
@@ -89,8 +90,8 @@ public class Combination extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          View v =inflater.inflate(R.layout.fragment_combination, container, false);
-         Main.initTool(v);
-        initData(v);
+        // Main.initTool(v);
+         initData(v);
 
         //利率折扣
         final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
@@ -256,20 +257,8 @@ public class Combination extends Fragment {
 
 
                 ResultActivity resultTip = new ResultActivity(getActivity(),R.style.result_dialog,loanSYRate,loanSYMoney,loanGJJRate,loanGJJMoney,loanYear);
-
+                resultTip.setHiddenPart(HiddenPart);
                 resultTip.setActivity(getActivity());
-                Window dialogWindow = resultTip.getWindow();
-                WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-                dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
-
-                lp.x = 35; // 新位置X坐标
-                lp.y = 650; // 新位置Y坐标
-                lp.width = 650; // 宽度
-                lp.height = 600; // 高度
-                lp.alpha = 1.0f; // 透明度
-
-                dialogWindow.setAttributes(lp);
-
                 resultTip.show();
 
 
@@ -300,6 +289,8 @@ public class Combination extends Fragment {
         spinnerInterestRateSell = (Spinner)v.findViewById(R.id.spinnerInterestRateSell);//利率折扣
 
         buttonCalculate = (ImageButton) v.findViewById(R.id.calculate);//计算按钮
+
+        HiddenPart = (LinearLayout) v.findViewById(R.id.HiddenPart);
 
         loanSYMoney = 0.0;
         loanGJJMoney = 0.0;

@@ -52,7 +52,7 @@ public class Busines extends Fragment {
 
     private FormulaMode formulaMode;
     private RadioButton radiolimit, radioarea, radioButtonAset, radioButtonTwoset;
-    private LinearLayout layoutMoney, layoutArea;
+    private LinearLayout layoutMoney, layoutArea,HiddenPart;
     private Spinner spinnerAgeLimit, spinnerInterestRate, spinnerDownPayment,spinnerInterestRateSell;
     private EditText editTextLoanAmount, editTextUnitPrice, editTextArea, editTextRate;
     private ImageButton buttonCalculate;
@@ -95,7 +95,7 @@ public class Busines extends Fragment {
         View v = inflater.inflate(R.layout.fragment_busines, container, false);
 
         initData(v);
-        Main.initTool(v);
+       // Main.initTool(v);
 
         //利率折扣
         final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
@@ -307,23 +307,9 @@ public class Busines extends Fragment {
                 }
 
                 ResultActivity resultTip = new ResultActivity(getActivity(),R.style.result_dialog,loanRate,loanMoney,loanYear);
-
+                resultTip.setHiddenPart(HiddenPart);
                 resultTip.setActivity(getActivity());
-                Window dialogWindow = resultTip.getWindow();
-                WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-                dialogWindow.setGravity(Gravity.LEFT | Gravity.TOP);
-
-                lp.x = 35; // 新位置X坐标
-                lp.y = 650; // 新位置Y坐标
-                lp.width = 650; // 宽度
-                lp.height = 600; // 高度
-                lp.alpha = 1.0f; // 透明度
-
-                dialogWindow.setAttributes(lp);
-
                 resultTip.show();
-
-
 
             }
         });
@@ -347,6 +333,7 @@ public class Busines extends Fragment {
 
         layoutMoney = (LinearLayout) v.findViewById(R.id.layoutMoney);//贷款金额区域
         layoutArea = (LinearLayout) v.findViewById(R.id.layoutArea);//面积区域
+        HiddenPart = (LinearLayout) v.findViewById(R.id.HiddenPart);//
 
         spinnerAgeLimit = (Spinner) v.findViewById(R.id.spinnerAgeLimit);//贷款年限选择列表
         spinnerInterestRate = (Spinner) v.findViewById(R.id.spinnerInterestRate);//年利率选择列表

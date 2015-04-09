@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yt.loaninterestrate.tools.Calculate;
@@ -46,12 +47,14 @@ public class ResultActivity extends Dialog {
 
     private Boolean ZH = false;
 
+    private LinearLayout HiddenPart;
 
     public ResultActivity(Context context, int theme,double loanRate, double loanMoney, double loanYear) {
         super(context, theme);
         this.loanMoney = loanMoney;
         this.loanRate = loanRate;
         this.loanYear = loanYear;
+        this.HiddenPart = null;
     }
 
     public ResultActivity(Context context, int theme,double loanRate, double loanMoney,double loanGJJRate, double loanGJJMoney, double loanYear) {
@@ -62,18 +65,24 @@ public class ResultActivity extends Dialog {
         this.loanGJJMoney = loanGJJMoney;
         this.loanGJJRate = loanGJJRate;
         ZH = true;
+        this.HiddenPart = null;
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_result);
 
+        if(this.HiddenPart!=null) this.HiddenPart.setVisibility(View.GONE);
+
         btnClose = (Button)findViewById(R.id.btnClose);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
+                if(HiddenPart!=null) HiddenPart.setVisibility(View.VISIBLE);
             }
         });
         //处理显示数据
@@ -187,6 +196,10 @@ public class ResultActivity extends Dialog {
       //  return super.onTouchEvent(event);
 
 
+    }
+
+    public  void setHiddenPart(LinearLayout tmp){
+        this.HiddenPart = tmp;
     }
 
     public void setActivity(Activity v){

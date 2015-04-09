@@ -14,15 +14,17 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:background="@color/bodyBg"
             android:layout_gravity="top"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="15dp">
 
+
+
             <ImageView
+                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="70dp"
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView"
@@ -30,6 +32,12 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/HiddenPart"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:padding="@dimen/activity_body_padding"
@@ -323,7 +331,7 @@
                 android:id="@+id/calculate"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 />
 
 
@@ -331,9 +339,11 @@
             </LinearLayout>
 
 
+        </LinearLayout>
 
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:orientation="horizontal"
         android:layout_weight="2"
@@ -373,5 +383,5 @@
 
     </LinearLayout>
 
-
+-->
 </FrameLayout>
