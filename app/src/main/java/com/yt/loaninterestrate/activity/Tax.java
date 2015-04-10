@@ -52,7 +52,7 @@ public class Tax extends Fragment {
     private RadioButton radioOld,radioNew,radioButtonTotal,radioButtonDiff,radioYes5,radioNo5,radioYes1,radioNo1,radioYesOnly,radioNoOnly;
     private EditText editTextArea,editTextUnitPrice,editTextAllPrice,editTextAGoAllPrice;
     private Spinner spinnerHouseType;
-    private LinearLayout layoutOld,layoutOldHouse,layoutOver5;
+    private LinearLayout layoutOld,layoutOldHouse,layoutOver5,HiddenPart;
     private Boolean isOver5,isFrist,isOnly;
     private Double HouseArea,AreaUnit,HousePrice,AGoHousePrice;
     private ImageButton calculate;
@@ -101,9 +101,11 @@ public class Tax extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     layoutOld.setVisibility(View.VISIBLE);
+                    OldNew= 1;
                    // Toast.makeText(getActivity(),"选中",Toast.LENGTH_LONG).show();
                 }else{
                     layoutOld.setVisibility(View.GONE);
+                    OldNew= 2;
                     //Toast.makeText(getActivity(),"没选中",Toast.LENGTH_LONG).show();
                 }
             }
@@ -114,9 +116,11 @@ public class Tax extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked){
                     layoutOld.setVisibility(View.VISIBLE);
+                    OldNew= 1;
                     // Toast.makeText(getActivity(),"选中",Toast.LENGTH_LONG).show();
                 }else{
                     layoutOld.setVisibility(View.GONE);
+                    OldNew= 2;
                     //Toast.makeText(getActivity(),"没选中",Toast.LENGTH_LONG).show();
                 }
             }
@@ -269,34 +273,52 @@ public class Tax extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(editTextAllPrice.getText().toString().length()!=0) {
-                    HousePrice = Double.parseDouble(editTextAllPrice.getText().toString());
-                }else{
-                    Toast.makeText(getActivity(),"请输入房子总价",Toast.LENGTH_LONG).show();
-                    return;
+
+                if(editTextArea.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity(), "请输入房子面积", Toast.LENGTH_LONG).show();
+                    return ;
                 }
 
-                if(AllOff==2) {
-                    if (editTextAGoAllPrice.getText().toString().length() != 0) {
-                        AGoHousePrice = Double.parseDouble(editTextAGoAllPrice.getText().toString());
+                if(editTextUnitPrice.getText().toString().isEmpty()){
+                    Toast.makeText(getActivity(), "请输入房子平米单价", Toast.LENGTH_LONG).show();
+                    return ;
+                }
+
+                if( OldNew==1) {
+                    if (editTextAllPrice.getText().toString().length() != 0 && Double.parseDouble(editTextAllPrice.getText().toString())!=0.0) {
+                        HousePrice = Double.parseDouble(editTextAllPrice.getText().toString());
                     } else {
-                        Toast.makeText(getActivity(), "请输入原始房子价格", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "请输入房子总价", Toast.LENGTH_LONG).show();
                         return;
                     }
+
+                    if(AllOff==2) {
+                        if (editTextAGoAllPrice.getText().toString().length() != 0) {
+                            AGoHousePrice = Double.parseDouble(editTextAGoAllPrice.getText().toString());
+                        } else {
+                            Toast.makeText(getActivity(), "请输入房子原价", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        HousePrice = HousePrice - AGoHousePrice;
+                    }
+
+                }else{
+
+                    HouseArea = Double.parseDouble(editTextArea.getText().toString());
+                    AreaUnit = Double.parseDouble(editTextUnitPrice.getText().toString());
+                    HousePrice = Double.parseDouble(editTextArea.getText().toString()) * Double.parseDouble(editTextUnitPrice.getText().toString());
+
                 }
 
-                Intent intenet = new Intent();
-                intenet.putExtra("Type",OldNew);
-                intenet.putExtra("HouseType",HouseType);
-                intenet.putExtra("AllOff",AllOff);
-                intenet.putExtra("HousePrice",HousePrice);
-                intenet.putExtra("HouseArea",HouseArea);
-                intenet.putExtra("OldHousePrice",AGoHousePrice);
-                intenet.putExtra("isOver5",isOver5);
-                intenet.putExtra("isFrist",isFrist);
-                intenet.putExtra("isOnly",isOnly);
-                intenet.setClass(getActivity(),ResultTax.class);
-                startActivity(intenet);
+
+
+                ResultTax result = new ResultTax(getActivity(),R.style.result_dialog,OldNew,HouseType,AllOff,
+                       HouseArea, HousePrice,AGoHousePrice,isOver5,isFrist,isOnly);
+                result.setHiddenPart(HiddenPart);
+                result.setActivity(getActivity());
+                result.show();
+
             }
         });
 
@@ -398,6 +420,8 @@ public class Tax extends Fragment {
         layoutOldHouse = (LinearLayout)v.findViewById(R.id.layoutOldHouse);
         //过5年部分
         layoutOver5 = (LinearLayout)v.findViewById(R.id.layoutOver5);
+
+        HiddenPart = (LinearLayout)v.findViewById(R.id.HiddenPart);
 
         calculate = (ImageButton)v.findViewById(R.id.calculate);
 

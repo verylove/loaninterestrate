@@ -14,11 +14,10 @@
 
         <TableLayout
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:stretchColumns="1">
 
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="每月等额还款" style="@style/ResultTitle" /></TableRow>
+
             <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="贷款总额"  style="@style/ReultBodyLeft" /><TextView android:id="@+id/textViewEvenMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>
             <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="还款月数" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewEvenMonth" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="月"  android:layout_width="50dp" /></TableRow>
             <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="每月还款" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewEvenMonthMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.yt.loaninterestrate.activity.HelpActivity;
+import com.yt.loaninterestrate.activity.History;
 import com.yt.loaninterestrate.tools.CheckUpdate;
 
 
@@ -130,6 +131,15 @@ public class Main extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.mViewPager.setCurrentItem(0);
+            }
+        });
+
+        btnPersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intenet = new Intent();
+                intenet.setClass(context,History.class);
+                context.startActivity(intenet);
             }
         });
 

@@ -32,6 +32,10 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/HiddenPart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -165,7 +169,6 @@
                     <EditText
                         android:id="@+id/editTextAllPrice"
                         android:layout_width="100dp"
-                        android:text="10000"
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:textSize="@dimen/Text_Edit_size"
@@ -235,7 +238,6 @@
                     <EditText
                         android:id="@+id/editTextAGoAllPrice"
                         android:layout_width="100dp"
-                        android:text="10000"
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:textSize="@dimen/Text_Edit_size"
@@ -391,23 +393,35 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical">
-            <ImageButton
-                android:background="@drawable/all_resultbtn_press"
-                android:id="@+id/calculate"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:background="@drawable/all_resultbtn_press"
+                        android:id="@+id/calculate"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        />
+
+                    <ImageButton
+                        android:background="@drawable/all_resetbtn_press"
+                        android:id="@+id/reset"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        />
 
 
-        </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

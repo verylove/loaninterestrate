@@ -208,7 +208,7 @@ public class CheckUpdate {
 
 
             if(Compar_date(newVersion,getVersion()) > 0){
-                Toast.makeText(context,"开始下载最新利率",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"开始下载最新利率",Toast.LENGTH_SHORT).show();
                 downRate();
             }else{
                 Toast.makeText(context, "已经是最新的利率！", Toast.LENGTH_LONG).show();

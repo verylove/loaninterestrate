@@ -36,6 +36,10 @@
             android:name=".activity.ResultTax"
             android:label="@string/title_activity_result_tax" >
         </activity>
+        <activity
+            android:name=".activity.History"
+            android:label="@string/title_activity_history" >
+        </activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.yt.loaninterestrate.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.yt.loaninterestrate.tools.Calculate;
 import com.yt.loaninterestrate.R;
 import com.yt.loaninterestrate.tools.DataBaseHelp;
+import com.yt.loaninterestrate.tools.HistoryDataBasesHelp;
 import com.yt.loaninterestrate.tools.InterestRate;
 
 import java.text.DateFormat;
@@ -56,6 +58,23 @@ public class ResultActivity extends Dialog {
         this.loanRate = loanRate;
         this.loanYear = loanYear;
         this.HiddenPart = null;
+
+        SQLiteDatabase db = new HistoryDataBasesHelp(context).getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("loanRate",loanRate);
+        cv.put("loanMoney",loanMoney);
+
+        cv.put("loanGJJRate",0);
+        cv.put("loanGJJMoney",0);
+        cv.put("loanYear",loanYear);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        cv.put("date",df.format(new Date()));
+        cv.put("type",0);
+
+        db.insert("history",null,cv);
+
+        db.close();
     }
 
     public ResultActivity(Context context, int theme,double loanRate, double loanMoney,double loanGJJRate, double loanGJJMoney, double loanYear) {
@@ -67,6 +86,23 @@ public class ResultActivity extends Dialog {
         this.loanGJJRate = loanGJJRate;
         ZH = true;
         this.HiddenPart = null;
+
+        SQLiteDatabase db = new HistoryDataBasesHelp(context).getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("loanRate",loanRate);
+        cv.put("loanMoney",loanMoney);
+
+        cv.put("loanGJJRate",loanGJJRate);
+        cv.put("loanGJJMoney",loanGJJMoney);
+        cv.put("loanYear",loanYear);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        cv.put("date",df.format(new Date()));
+        cv.put("type",1);
+
+        db.insert("history",null,cv);
+
+        db.close();
     }
 
 

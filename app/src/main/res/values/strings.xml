@@ -12,5 +12,6 @@
     <string name="title_activity_help">Help</string>
     <string name="title_activity_activity__result_tax">activity_ResultTax</string>
     <string name="title_activity_result_tax">ResultTax</string>
+    <string name="title_activity_history">History</string>
 
 </resources>
