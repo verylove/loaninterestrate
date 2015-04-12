@@ -109,14 +109,14 @@ public class ResultTax extends Dialog {
             }
 
 
-            textViewHouseAllPrice.setText(get4s5r(HousePrice,2)+"");
-            textViewYinhuashui.setText(Yinhuasui+"");
-            textViewPublicWXJJ.setText(Ggwxjj+"");
-            textViewQishui.setText(Qisui+"");
+            textViewHouseAllPrice.setText(ResultActivity.formatFloatNumber(HousePrice));
+            textViewYinhuashui.setText(ResultActivity.formatFloatNumber(Yinhuasui));
+            textViewPublicWXJJ.setText(ResultActivity.formatFloatNumber(Ggwxjj));
+            textViewQishui.setText(ResultActivity.formatFloatNumber(Qisui));
 
-            textViewGerensuode.setText(Gerensuode+"");
-            textViewYingyeshui.setText(Yingyeshui+"");
-            textViewCountAllShui.setText(Yinhuasui + Ggwxjj + Qisui + Gerensuode + Yingyeshui+"");
+            textViewGerensuode.setText(ResultActivity.formatFloatNumber(Gerensuode));
+            textViewYingyeshui.setText(ResultActivity.formatFloatNumber(Yingyeshui));
+            textViewCountAllShui.setText(ResultActivity.formatFloatNumber(Yinhuasui + Ggwxjj + Qisui + Gerensuode + Yingyeshui));
         }else{
 
             Yinhuasui = get4s5r(HousePrice * 0.0005,2);
@@ -127,14 +127,14 @@ public class ResultTax extends Dialog {
                 Qisui = get4s5r(HousePrice * 0.015, 2);
             }
 
-            textViewHouseAllPrice.setText(get4s5r(HousePrice,2)+"");
-            textViewYinhuashui.setText(Yinhuasui+"");
-            textViewPublicWXJJ.setText(Ggwxjj+"");
-            textViewQishui.setText(Qisui+"");
+            textViewHouseAllPrice.setText(ResultActivity.formatFloatNumber(HousePrice));
+            textViewYinhuashui.setText(ResultActivity.formatFloatNumber(Yinhuasui));
+            textViewPublicWXJJ.setText(ResultActivity.formatFloatNumber(Ggwxjj));
+            textViewQishui.setText(ResultActivity.formatFloatNumber(Qisui));
 
             textViewGerensuode.setText(0+"");
             textViewYingyeshui.setText(0+"");
-            textViewCountAllShui.setText(get4s5r(Yinhuasui + Ggwxjj + Qisui + Gerensuode + Yingyeshui,2)+"");
+            textViewCountAllShui.setText(ResultActivity.formatFloatNumber(Yinhuasui + Ggwxjj + Qisui + Gerensuode + Yingyeshui));
         }
 
 

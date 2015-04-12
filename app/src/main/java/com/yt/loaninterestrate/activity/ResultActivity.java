@@ -62,8 +62,8 @@ public class ResultActivity extends Dialog {
         SQLiteDatabase db = new HistoryDataBasesHelp(context).getWritableDatabase();
 
         ContentValues cv = new ContentValues();
-        cv.put("loanRate",loanRate);
-        cv.put("loanMoney",loanMoney);
+        cv.put("loanRate",formatFloatNumber(loanRate));
+        cv.put("loanMoney",formatFloatNumber(loanMoney));
 
         cv.put("loanGJJRate",0);
         cv.put("loanGJJMoney",0);
@@ -90,11 +90,11 @@ public class ResultActivity extends Dialog {
         SQLiteDatabase db = new HistoryDataBasesHelp(context).getWritableDatabase();
 
         ContentValues cv = new ContentValues();
-        cv.put("loanRate",loanRate);
-        cv.put("loanMoney",loanMoney);
+        cv.put("loanRate",formatFloatNumber(loanRate));
+        cv.put("loanMoney",formatFloatNumber(loanMoney));
 
-        cv.put("loanGJJRate",loanGJJRate);
-        cv.put("loanGJJMoney",loanGJJMoney);
+        cv.put("loanGJJRate",formatFloatNumber(loanGJJRate));
+        cv.put("loanGJJMoney",formatFloatNumber(loanGJJMoney));
         cv.put("loanYear",loanYear);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         cv.put("date",df.format(new Date()));
@@ -144,23 +144,23 @@ public class ResultActivity extends Dialog {
             t11.evenMoney();
 
             //等息
-            textViewEvenMoney.setText(get4s5r(t1.loanAmount+t11.loanAmount, 2) + "");
-            textViewEvenMonth.setText(get4s5r(t1.monthCount, 0) + "");
-            textViewEvenMonthMoney.setText(get4s5r(t1.repayMonthMoney+t11.repayMonthMoney, 2) + "");
-            textViewEvenInterestMoney.setText(get4s5r(t1.repayInterest+t11.repayInterest, 2) + "");
-            textViewEvenAllMoney.setText(get4s5r(t1.repayAllMoney+t11.repayAllMoney, 2) + "");
+            textViewEvenMoney.setText(formatFloatNumber(t1.loanAmount+t11.loanAmount));
+            textViewEvenMonth.setText(t1.monthCount+"");
+            textViewEvenMonthMoney.setText(formatFloatNumber(t1.repayMonthMoney+t11.repayMonthMoney));
+            textViewEvenInterestMoney.setText(formatFloatNumber(t1.repayInterest+t11.repayInterest));
+            textViewEvenAllMoney.setText(formatFloatNumber(t1.repayAllMoney+t11.repayAllMoney));
 
             Calculate t2 = new Calculate(loanRate, loanMoney, loanYear);
             t2.diminishingMoney();
             Calculate t22 = new Calculate(loanGJJRate, loanGJJMoney, loanYear);
             t22.diminishingMoney();
             //等金
-            textViewDiminishingMoney.setText(get4s5r(t2.loanAmount+t22.loanAmount, 2) + "");
-            textViewDiminishingMonth.setText(get4s5r(t2.monthCount, 0) + "");
-            textViewDiminishingFristMonthMoney.setText(get4s5r(t2.returnAllMonth.get(0).doubleValue()+t22.returnAllMonth.get(0).doubleValue(), 2) + "");
-            textViewDiminishingOffMoney.setText(get4s5r(t2.repayLiminishing+t22.repayLiminishing, 2) + "");
-            textViewDiminishingInterestMoney.setText(get4s5r(t2.repayInterest+t22.repayInterest, 2) + "");
-            textViewDiminishingAllMoney.setText(get4s5r(t2.repayAllMoney+t22.repayAllMoney, 2) + "");
+            textViewDiminishingMoney.setText(formatFloatNumber(t2.loanAmount+t22.loanAmount));
+            textViewDiminishingMonth.setText(t2.monthCount+"");
+            textViewDiminishingFristMonthMoney.setText(formatFloatNumber(t2.returnAllMonth.get(0).doubleValue()+t22.returnAllMonth.get(0).doubleValue()));
+            textViewDiminishingOffMoney.setText(ResultTax.get4s5r(t2.repayLiminishing+t22.repayLiminishing,2)+"");
+            textViewDiminishingInterestMoney.setText(formatFloatNumber(t2.repayInterest+t22.repayInterest));
+            textViewDiminishingAllMoney.setText(formatFloatNumber(t2.repayAllMoney+t22.repayAllMoney));
         }else {
 
 
@@ -168,21 +168,21 @@ public class ResultActivity extends Dialog {
             t1.evenMoney();
 
             //等息
-            textViewEvenMoney.setText(get4s5r(t1.loanAmount, 2) + "");
-            textViewEvenMonth.setText(get4s5r(t1.monthCount, 0) + "");
-            textViewEvenMonthMoney.setText(get4s5r(t1.repayMonthMoney, 2) + "");
-            textViewEvenInterestMoney.setText(get4s5r(t1.repayInterest, 2) + "");
-            textViewEvenAllMoney.setText(get4s5r(t1.repayAllMoney, 2) + "");
+            textViewEvenMoney.setText(formatFloatNumber(t1.loanAmount));
+            textViewEvenMonth.setText(t1.monthCount+"");
+            textViewEvenMonthMoney.setText(formatFloatNumber(t1.repayMonthMoney));
+            textViewEvenInterestMoney.setText(formatFloatNumber(t1.repayInterest));
+            textViewEvenAllMoney.setText(formatFloatNumber(t1.repayAllMoney));
 
             Calculate t2 = new Calculate(loanRate, loanMoney, loanYear);
             t2.diminishingMoney();
             //等金
-            textViewDiminishingMoney.setText(get4s5r(t2.loanAmount, 2) + "");
-            textViewDiminishingMonth.setText(get4s5r(t2.monthCount, 0) + "");
-            textViewDiminishingFristMonthMoney.setText(get4s5r(t2.returnAllMonth.get(0).doubleValue(), 2) + "");
-            textViewDiminishingOffMoney.setText(get4s5r(t2.repayLiminishing, 2) + "");
-            textViewDiminishingInterestMoney.setText(get4s5r(t2.repayInterest, 2) + "");
-            textViewDiminishingAllMoney.setText(get4s5r(t2.repayAllMoney, 2) + "");
+            textViewDiminishingMoney.setText(formatFloatNumber(t2.loanAmount));
+            textViewDiminishingMonth.setText(formatFloatNumber(t2.monthCount));
+            textViewDiminishingFristMonthMoney.setText(formatFloatNumber(t2.returnAllMonth.get(0).doubleValue()));
+            textViewDiminishingOffMoney.setText(ResultTax.get4s5r(t2.repayLiminishing,2)+"");
+            textViewDiminishingInterestMoney.setText(formatFloatNumber(t2.repayInterest));
+            textViewDiminishingAllMoney.setText(formatFloatNumber(t2.repayAllMoney));
 
         }
         startPos = new Point();
@@ -252,11 +252,26 @@ public class ResultActivity extends Dialog {
         parentActivity = v;
     }
 
+    /*
     public static Double get4s5r(Double data, Integer c) {
-        if(data!=0) {
+        if(data!=0.0) {
             data = new java.math.BigDecimal(Double.toString(data)).setScale(c, java.math.BigDecimal.ROUND_HALF_UP).doubleValue();
+        }else{
+            data = 0.0;
         }
         return data;
+    }
+    */
+
+
+    public static String formatFloatNumber(double value) {
+        if(value != 0.00){
+            java.text.DecimalFormat df = new java.text.DecimalFormat("########.00");
+            return df.format(value);
+        }else{
+            return "0.00";
+        }
+
     }
 
 }

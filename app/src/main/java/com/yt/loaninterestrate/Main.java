@@ -74,12 +74,17 @@ public class Main extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         this.context = getActivity();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View v = inflater.inflate(R.layout.fragment_main, container, false);
+
+        CheckUpdate ckup = new CheckUpdate(getActivity(),"Tip",v);
 
         btn1 = (ImageButton)v.findViewById(R.id.imageButton1);
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +125,8 @@ public class Main extends Fragment {
 
         return v;
     }
+
+
 
     public static void initTool(View v){
         btnHome = (ImageButton)v.findViewById(R.id.btnHome);

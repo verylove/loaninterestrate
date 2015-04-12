@@ -1,6 +1,8 @@
 package com.yt.loaninterestrate.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +58,7 @@ public class Busines extends Fragment {
     private LinearLayout layoutMoney, layoutArea,HiddenPart;
     private Spinner spinnerAgeLimit, spinnerInterestRate, spinnerDownPayment,spinnerInterestRateSell;
     private EditText editTextLoanAmount, editTextUnitPrice, editTextArea, editTextRate;
-    private ImageButton buttonCalculate;
+    private ImageButton buttonCalculate,btnHome,buttonReset;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,6 +92,13 @@ public class Busines extends Fragment {
 
     }
 
+    public static boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MainActivity.mViewPager.setCurrentItem(0);
+        }
+        return false;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +106,21 @@ public class Busines extends Fragment {
 
         initData(v);
        // Main.initTool(v);
+        btnHome = (ImageButton)v.findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mViewPager.setCurrentItem(0);
+            }
+        });
+
+        buttonReset = (ImageButton)v.findViewById(R.id.btnReset);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               ResetData();
+            }
+        });
 
         //利率折扣
         final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
@@ -122,10 +147,10 @@ public class Busines extends Fragment {
                 if(spinnerInterestRate.getSelectedItemPosition()!=-1) {
                     if (tmp == 0) {
                         double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextRate.setText(ResultActivity.get4s5r(1 * tmp1, 2) + "");
+                        editTextRate.setText(ResultActivity.formatFloatNumber(1 * tmp1));
                     } else {
                         double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextRate.setText(ResultActivity.get4s5r(tmp * 0.1 * tmp1, 2) + "");
+                        editTextRate.setText(ResultActivity.formatFloatNumber(tmp * 0.1 * tmp1));
                     }
                 }
 
@@ -156,10 +181,10 @@ public class Busines extends Fragment {
                 double tmp =  sellMoney;
                 if(tmp==0){
                     double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear);
-                    editTextRate.setText(ResultActivity.get4s5r(1*tmp1,2)+"");
+                    editTextRate.setText(ResultActivity.formatFloatNumber(1*tmp1));
                 }else{
                     double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear);
-                    editTextRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
+                    editTextRate.setText(ResultActivity.formatFloatNumber(tmp*0.1*tmp1));
                 }
 
                // Toast.makeText(getActivity(), MainActivity.interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
@@ -186,11 +211,11 @@ public class Busines extends Fragment {
                     if (i == 0) {
                         double tmp = 1;//不打折
                         double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextRate.setText(ResultActivity.get4s5r(tmp * tmp1, 2) + "");
+                        editTextRate.setText(ResultActivity.formatFloatNumber(tmp * tmp1));
                     } else {
                         double tmp = sellMoney;
                         double tmp1 = MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextRate.setText(ResultActivity.get4s5r(tmp * 0.1 * tmp1, 2) + "");
+                        editTextRate.setText(ResultActivity.formatFloatNumber(tmp * 0.1 * tmp1));
                     }
                 }
 
@@ -315,6 +340,19 @@ public class Busines extends Fragment {
         });
 
         return v;
+    }
+
+    public void ResetData(){
+        editTextLoanAmount.setText("");
+        editTextUnitPrice.setText("");
+        editTextArea.setText("");
+
+        spinnerAgeLimit.setSelection(9);
+        spinnerInterestRate.setSelection(0);
+        spinnerDownPayment.setSelection(1);
+        spinnerInterestRateSell.setSelection(0);
+
+        radioButtonAset.setChecked(true);
     }
 
     public void initData(View v){

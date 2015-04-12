@@ -1,50 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/framelayout_padding"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="@dimen/framelayout_padding">
+
+    <ScrollView
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_marginTop="100dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1">
+        android:orientation="vertical">
 
 
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="贷款总额"  style="@style/ReultBodyLeft" /><TextView android:id="@+id/textViewEvenMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="还款月数" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewEvenMonth" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="月"  android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="每月还款" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewEvenMonthMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="总支付利息" style="@style/ReultBodyLeft" /><TextView android:id="@+id/textViewEvenInterestMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView android:text="元"  android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView  android:text="本息合计" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewEvenAllMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>
-        </TableLayout>
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1">
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
 
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView android:text="逐月递减还款" style="@style/ResultTitle" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView android:text="贷款总额"  style="@style/ReultBodyLeft" /><TextView android:id="@+id/textViewDiminishingMoney" android:gravity="right" style="@style/ReultBodyRight"  android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView android:text="还款月数" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewDiminishingMonth" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="月"   android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView android:text="首月还款" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewDiminishingFristMonthMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp"  /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView android:text="每月递减" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewDiminishingOffMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView android:text="总支付利息" style="@style/ReultBodyLeft" /><TextView android:id="@+id/textViewDiminishingInterestMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView android:text="元"  android:layout_width="50dp" /></TableRow>
-            <TableRow style="@style/ReultBody"  android:padding="5dp"><TextView android:text="本息合计" style="@style/ReultBodyLeft" /><TextView  android:id="@+id/textViewDiminishingAllMoney" android:gravity="right" style="@style/ReultBodyRight" android:text="0" /><TextView  android:text="元"  android:layout_width="50dp" /></TableRow>
-        </TableLayout>
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
 
-        <Button
-            android:text="返回"
-            android:id="@+id/btnClose"
-            android:background="#77FFFFFF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                    <TextView
+                        android:textStyle="bold"
+                        style="@style/ResultTitle"
+                        android:text="每月等额还款" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="贷款总额" />
+
+                    <TextView
+                        android:id="@+id/textViewEvenMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="还款月数" />
+
+                    <TextView
+                        android:id="@+id/textViewEvenMonth"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="月" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="每月还款" />
+
+                    <TextView
+                        android:id="@+id/textViewEvenMonthMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="总支付利息" />
+
+                    <TextView
+                        android:id="@+id/textViewEvenInterestMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="本息合计" />
+
+                    <TextView
+                        android:id="@+id/textViewEvenAllMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        style="@style/ResultTitle"
+                        android:text="逐月递减还款" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="贷款总额" />
+
+                    <TextView
+                        android:id="@+id/textViewDiminishingMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="还款月数" />
+
+                    <TextView
+                        android:id="@+id/textViewDiminishingMonth"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="月" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="首月还款" />
+
+                    <TextView
+                        android:id="@+id/textViewDiminishingFristMonthMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="每月递减" />
+
+                    <TextView
+                        android:id="@+id/textViewDiminishingOffMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="总支付利息" />
+
+                    <TextView
+                        android:id="@+id/textViewDiminishingInterestMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/ReultBodyLeft"
+                        android:text="本息合计" />
+
+                    <TextView
+                        android:id="@+id/textViewDiminishingAllMoney"
+                        style="@style/ReultBodyRight"
+                        android:gravity="right"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:text="元" />
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btnClose"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#77FFFFFF"
+                android:text="返回" />
+
+
+
     </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

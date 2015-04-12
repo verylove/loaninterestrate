@@ -6,208 +6,213 @@
     android:padding="@dimen/framelayout_padding"
     tools:context="com.yt.loaninterestrate.activity.ResultTax">
 
+    <ScrollView
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:orientation="vertical">
 
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/bodyBg"
-            android:stretchColumns="1">
-
-            <TableRow
-                style="@style/ReultBody"
-                android:layout_width="match_parent"
+            <TableLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="5dp">
+                android:background="@color/bodyBg"
+                android:stretchColumns="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <TableRow
+                    style="@style/ReultBody"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="税费计算结果 :"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center_horizontal"
+                    android:padding="5dp">
 
-            </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="税费计算结果 :"
+                        android:textStyle="bold" />
 
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="房子总款" />
-
-                <TextView
-                    android:id="@+id/HouseAllPrice"
-                    style="@style/ReultBodyRight"
-                    android:gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </TableRow>
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-
-                <TextView android:text="印 花 税" />
-
-                <TextView
-                    android:id="@+id/Yinhuashui"
-                    style="@style/ReultBodyRight"
-                    android:gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </TableRow>
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="公共维修基金" />
-
-                <TextView
-                    android:id="@+id/PublicWXJJ"
-                    style="@style/ReultBodyRight"
-                    android:gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </TableRow>
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="契　　税" />
-
-                <TextView
-                    android:id="@+id/Qishui"
-                    style="@style/ReultBodyRight"
-                    android:gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </TableRow>
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="营业税" />
-
-                <TextView
-                    android:id="@+id/Yingyeshui"
-                    style="@style/ReultBodyRight"
-                    android:gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </TableRow>
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="个人所得税" />
-
-                <TextView
-                    android:id="@+id/Gerensuode"
-                    style="@style/ReultBodyRight"
-                    android:gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </TableRow>
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="合计 :" />
-
-                <TextView
-                    android:id="@+id/CountAllShui"
-                    style="@style/ReultBodyRight"
-                    android:gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </TableRow>
-
-            <TableRow
-                style="@style/ReultBody"
-                android:padding="5dp">
-                <TextView
-                    android:layout_span="3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="   * 税费请以当地收取为准，此数据仅供参考" />
-
-            </TableRow>
+                </TableRow>
 
 
-        </TableLayout>
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="房子总款" />
+
+                    <TextView
+                        android:id="@+id/HouseAllPrice"
+                        style="@style/ReultBodyRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView android:text="印 花 税" />
+
+                    <TextView
+                        android:id="@+id/Yinhuashui"
+                        style="@style/ReultBodyRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="公共维修基金" />
+
+                    <TextView
+                        android:id="@+id/PublicWXJJ"
+                        style="@style/ReultBodyRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="契　　税" />
+
+                    <TextView
+                        android:id="@+id/Qishui"
+                        style="@style/ReultBodyRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="营业税" />
+
+                    <TextView
+                        android:id="@+id/Yingyeshui"
+                        style="@style/ReultBodyRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个人所得税" />
+
+                    <TextView
+                        android:id="@+id/Gerensuode"
+                        style="@style/ReultBodyRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="合计 :" />
+
+                    <TextView
+                        android:id="@+id/CountAllShui"
+                        style="@style/ReultBodyRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+                </TableRow>
+
+                <TableRow
+                    style="@style/ReultBody"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="3"
+                        android:text="   * 税费请以当地收取为准，此数据仅供参考" />
+
+                </TableRow>
 
 
+            </TableLayout>
 
-        <Button
-            android:id="@+id/btnClose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#77FFFFFF"
-            android:text="返回" />
+            <Button
+                android:id="@+id/btnClose"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#77FFFFFF"
+                android:text="返回" />
+
 
     </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

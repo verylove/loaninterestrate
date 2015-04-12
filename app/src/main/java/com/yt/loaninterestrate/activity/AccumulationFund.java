@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class AccumulationFund extends Fragment {
     private LinearLayout layoutMoney, layoutArea,HiddenPart;
     private Spinner spinnerAgeLimit, spinnerInterestRate, spinnerDownPayment;
     private EditText editTextLoanAmount, editTextUnitPrice, editTextArea, editTextRate;
-    private ImageButton buttonCalculate;
+    private ImageButton buttonCalculate,btnHome,buttonReset;
 
     private OnFragmentInteractionListener mListener;
 
@@ -98,6 +99,21 @@ public class AccumulationFund extends Fragment {
         View v = inflater.inflate(R.layout.fragment_accumulation_fund, container, false);
         initData(v);
        // Main.initTool(v);
+        btnHome = (ImageButton)v.findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mViewPager.setCurrentItem(0);
+            }
+        });
+
+        buttonReset = (ImageButton)v.findViewById(R.id.btnReset);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ResetData();
+            }
+        });
 
         //贷款年限
         final List<AgeLimitData> agelimitdatas = new ArrayList<AgeLimitData>();
@@ -120,7 +136,7 @@ public class AccumulationFund extends Fragment {
                 loanYear = agelimitdatas.get(i).key;
 
                 double tmp1 =  MainActivity.interestratess.get(spinnerInterestRate.getSelectedItemPosition()).getRate(loanYear,1);
-                editTextRate.setText(ResultActivity.get4s5r(tmp1,2)+"");
+                editTextRate.setText(ResultActivity.formatFloatNumber(tmp1));
 
             }
 
@@ -138,7 +154,7 @@ public class AccumulationFund extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                     double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear,1);
-                    editTextRate.setText(ResultActivity.get4s5r(tmp1,2)+"");
+                    editTextRate.setText(ResultActivity.formatFloatNumber(tmp1));
 
                 // Toast.makeText(getActivity(), MainActivity.interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
             }
@@ -204,7 +220,7 @@ public class AccumulationFund extends Fragment {
                 if (radioButtonAset.isChecked()) {
                     //Toast.makeText(getActivity(), "选择了一套", Toast.LENGTH_LONG).show();
                     //spinnerDownPayment.setSelection(1);
-                    editTextRate.setText(ResultActivity.get4s5r((Double.parseDouble(editTextRate.getText().toString())/1.1),2)+"");
+                    editTextRate.setText(ResultActivity.formatFloatNumber((Double.parseDouble(editTextRate.getText().toString())/1.1)));
                 }
             }
         });
@@ -215,7 +231,7 @@ public class AccumulationFund extends Fragment {
                 if(radioButtonTwoset.isChecked()) {
                     //Toast.makeText(getActivity(), "选择了二套", Toast.LENGTH_LONG).show();
                     //spinnerDownPayment.setSelection(4);
-                    editTextRate.setText(ResultActivity.get4s5r((Double.parseDouble(editTextRate.getText().toString())*1.1),2)+"");
+                    editTextRate.setText(ResultActivity.formatFloatNumber((Double.parseDouble(editTextRate.getText().toString())*1.1)));
                 };
             }
         });
@@ -287,6 +303,15 @@ public class AccumulationFund extends Fragment {
         mListener = null;
     }
 
+
+    public static boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MainActivity.mViewPager.setCurrentItem(0);
+        }
+        return false;
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -302,6 +327,17 @@ public class AccumulationFund extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    public void ResetData(){
+        editTextLoanAmount.setText("");
+        editTextUnitPrice.setText("");
+        editTextArea.setText("");
+
+        spinnerAgeLimit.setSelection(9);
+        spinnerInterestRate.setSelection(0);
+        spinnerDownPayment.setSelection(1);
+
+        radioButtonAset.setChecked(true);
+    }
 
     public void initData(View v){
 

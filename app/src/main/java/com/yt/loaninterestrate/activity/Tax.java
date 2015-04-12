@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Layout;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class Tax extends Fragment {
     private LinearLayout layoutOld,layoutOldHouse,layoutOver5,HiddenPart;
     private Boolean isOver5,isFrist,isOnly;
     private Double HouseArea,AreaUnit,HousePrice,AGoHousePrice;
-    private ImageButton calculate;
+    private ImageButton calculate,btnHome,buttonReset;
     private Integer HouseType,OldNew,AllOff;
 
     /**
@@ -89,12 +90,35 @@ public class Tax extends Fragment {
         }
     }
 
+    public static boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MainActivity.mViewPager.setCurrentItem(0);
+        }
+        return false;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tax, container, false);
        // Main.initTool(v);
         initData(v);
+        btnHome = (ImageButton)v.findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mViewPager.setCurrentItem(0);
+            }
+        });
+
+        buttonReset = (ImageButton)v.findViewById(R.id.btnReset);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ResetData();
+            }
+        });
 
         radioOld.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -238,7 +262,7 @@ public class Tax extends Fragment {
                     }else{
                         AreaUnit = 0.0;
                     }
-                    editTextAllPrice.setText((AreaUnit*HouseArea)+"");
+                    editTextAllPrice.setText(ResultActivity.formatFloatNumber(AreaUnit*HouseArea));
                 }
             }
         });
@@ -250,7 +274,7 @@ public class Tax extends Fragment {
 
                 }else{
                     String Area = editTextArea.getText().toString();
-                    if(Area!=""){
+                    if(!Area.isEmpty()){
                         HouseArea = Double.parseDouble(editTextArea.getText().toString());
                     }else{
                         HouseArea = 0.0;
@@ -262,7 +286,7 @@ public class Tax extends Fragment {
                     }else{
                         AreaUnit = 0.0;
                     }
-                    editTextAllPrice.setText((AreaUnit*HouseArea)+"");
+                    editTextAllPrice.setText(ResultActivity.formatFloatNumber(AreaUnit*HouseArea));
                 }
             }
         });
@@ -376,6 +400,24 @@ public class Tax extends Fragment {
         public String toString(){
             return value;
         }
+
+    }
+
+    public void ResetData(){
+
+        radioOld.setChecked(true);
+        radioButtonTotal.setChecked(true);
+        radioYes5.setChecked(true);
+        radioYes1.setChecked(true);
+        radioYesOnly.setChecked(true);
+
+        spinnerHouseType.setSelection(0);
+
+        editTextArea.setText("");
+        editTextUnitPrice.setText("");
+        editTextAllPrice.setText("");
+        editTextAGoAllPrice.setText("");
+
 
     }
 

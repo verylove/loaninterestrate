@@ -107,9 +107,9 @@
                 <EditText
                     android:textSize="@dimen/Text_Edit_size"
                     android:id="@+id/editTextArea"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:ems="15"
                     android:inputType="numberDecimal" />
 
                 <TextView
@@ -132,7 +132,7 @@
 
                 <EditText
                     android:id="@+id/editTextUnitPrice"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:ems="15"
                     android:textSize="@dimen/Text_Edit_size"
@@ -168,9 +168,9 @@
 
                     <EditText
                         android:id="@+id/editTextAllPrice"
-                        android:layout_width="100dp"
+                        android:layout_width="150dp"
                         android:layout_height="match_parent"
-                        android:ems="10"
+                        android:ems="15"
                         android:textSize="@dimen/Text_Edit_size"
                         android:inputType="numberDecimal" />
 
@@ -237,9 +237,9 @@
 
                     <EditText
                         android:id="@+id/editTextAGoAllPrice"
-                        android:layout_width="100dp"
+                        android:layout_width="150dp"
                         android:layout_height="match_parent"
-                        android:ems="10"
+                        android:ems="20"
                         android:textSize="@dimen/Text_Edit_size"
                         android:inputType="numberDecimal" />
 
@@ -397,23 +397,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:orientation="horizontal">
+                    android:paddingTop="20dp"
+                    android:orientation="horizontal"
+                    >
                     <ImageButton
-                        android:background="@drawable/all_resultbtn_press"
+                        android:layout_weight="1"
+                        android:background="@drawable/all_resultsfbtn_press"
                         android:id="@+id/calculate"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="60dp"
+                        android:layout_height="35dp"
                         />
 
                     <ImageButton
+                        android:id="@+id/btnHome"
+                        android:layout_gravity="top"
+                        android:layout_marginRight="@dimen/icon_body_padding"
+                        android:layout_marginLeft="@dimen/icon_body_padding"
+                        android:layout_width="@dimen/main_tool_widthandheight"
+                        android:layout_height="@dimen/main_tool_widthandheight"
+                        android:background="@drawable/btn_home_press"/>
+
+                    <ImageButton
+                        android:layout_weight="1"
                         android:background="@drawable/all_resetbtn_press"
-                        android:id="@+id/reset"
-                        android:layout_gravity="center"
+                        android:id="@+id/btnReset"
                         android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        />
+                        android:layout_height="35dp" />
 
 
                 </LinearLayout>

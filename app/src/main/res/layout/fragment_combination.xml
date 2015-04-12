@@ -105,7 +105,7 @@
                         android:ems="10"
                         android:textSize="@dimen/Text_Edit_size"
                         android:inputType="numberDecimal"
-                        android:text="10000" />
+                        android:text="" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -185,7 +185,7 @@
                         android:textSize="@dimen/Text_Edit_size"
                         android:ems="10"
                         android:inputType="numberDecimal"
-                        android:text="10000" />
+                        android:text="" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -254,23 +254,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingTop="20dp"
                     android:orientation="horizontal">
                     <ImageButton
+                        android:layout_weight="1"
                         android:background="@drawable/all_resultbtn_press"
                         android:id="@+id/calculate"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="60dp"
+                        android:layout_height="35dp"
                         />
 
                     <ImageButton
+                        android:id="@+id/btnHome"
+                        android:layout_gravity="top"
+                        android:layout_marginRight="@dimen/icon_body_padding"
+                        android:layout_marginLeft="@dimen/icon_body_padding"
+                        android:layout_width="@dimen/main_tool_widthandheight"
+                        android:layout_height="@dimen/main_tool_widthandheight"
+                        android:background="@drawable/btn_home_press"/>
+
+                    <ImageButton
+                        android:layout_weight="1"
                         android:background="@drawable/all_resetbtn_press"
-                        android:id="@+id/reset"
-                        android:layout_gravity="center"
+                        android:id="@+id/btnReset"
                         android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        />
+                        android:layout_height="35dp" />
 
 
                 </LinearLayout>

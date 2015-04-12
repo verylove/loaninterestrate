@@ -49,6 +49,8 @@ public class MainActivity extends FragmentActivity {
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     public static ViewPager mViewPager;
+    private Fragment fg;
+
 
     //年利率
     public final static List<InterestRate> interestratess = new ArrayList<InterestRate>();
@@ -72,6 +74,7 @@ public class MainActivity extends FragmentActivity {
 
 
     public void initRate(){
+        interestratess.clear();
         DataBaseHelp dbh = new DataBaseHelp(getApplicationContext());
         SQLiteDatabase db = dbh.getReadableDatabase();
         Cursor cursor = db.query("rate",null,null,null,null,null,"DATE DESC");
@@ -120,28 +123,65 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            new AlertDialog.Builder(this).setTitle("确认退出吗？")
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
 
-                        }
-                    })
-                    .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+        fg = getVisibleFragment();
+        if (fg instanceof Busines) {
+            Busines.onKeyDown(keyCode, event);
+        } else if (fg instanceof AccumulationFund) {
+            AccumulationFund.onKeyDown(keyCode, event);
+        } else if (fg instanceof Combination){
+            Combination.onKeyDown(keyCode, event);
+        }else if (fg instanceof Tax){
+            Tax.onKeyDown(keyCode, event);
+        }else if (fg instanceof Main){
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                new AlertDialog.Builder(this).setTitle("确认退出吗？")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // 点击“返回”后的操作,这里不设置没有任何操作
-                        }
-                    }).show();
+                            }
+                        })
+                        .setNegativeButton("返回", new DialogInterface.OnClickListener() {
 
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 点击“返回”后的操作,这里不设置没有任何操作
+                            }
+                        }).show();
+
+            }
         }
 
+
         return false;
-        //return super.onKeyDown(keyCode, event);
+       // return super.onKeyDown(keyCode, event);
+    }
+
+    public Fragment getVisibleFragment(){
+      List<Fragment> tmp = new ArrayList<Fragment>();
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for(Fragment fragment : fragments){
+            if(fragment != null && fragment.isVisible() && fragment.isAdded()) {
+                tmp.add(fragment);
+            }
+               // return fragment;
+        }
+        if(tmp.size()<=2){
+            if(tmp.get(1) instanceof  Tax){
+                return tmp.get(1);
+            }else {
+                return tmp.get(0);
+            }
+        }else if(tmp.size()>=3){
+            return tmp.get(1);
+        }else{
+            return null;
+        }
+
     }
 
     @Override
@@ -170,6 +210,7 @@ public class MainActivity extends FragmentActivity {
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
+
         mViewPager.setCurrentItem(tab.getPosition());
     }
 
@@ -192,6 +233,8 @@ public class MainActivity extends FragmentActivity {
             }else{
                 position = position + 1;
             }
+
+
             switch (position) {
                 case 0:
                     ret = Init.newInstance("test1", "test2");
@@ -214,6 +257,7 @@ public class MainActivity extends FragmentActivity {
                 default:
                     ret = Main.newInstance("test1", "test2");
             }
+
             return ret;
             //return PlaceholderFragment.newInstance(position + 1);
         }

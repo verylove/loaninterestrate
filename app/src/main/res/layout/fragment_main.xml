@@ -85,6 +85,7 @@
 
 
         <LinearLayout
+            android:id="@+id/toolBar"
             android:orientation="horizontal"
             android:layout_weight="1"
             android:layout_gravity="bottom|center"
@@ -112,6 +113,7 @@
                 android:layout_width="@dimen/main_tool_widthandheight"
                 android:layout_height="@dimen/main_tool_widthandheight"
                 android:background="@drawable/btn_update_press"/>
+
 
             <ImageButton
                 android:id="@+id/btnSetting"

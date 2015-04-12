@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.ContactsContract;
@@ -17,9 +18,17 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import android.os.Handler;
+import android.view.View;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yt.loaninterestrate.Main;
 import com.yt.loaninterestrate.MainActivity;
+import com.yt.loaninterestrate.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,14 +50,36 @@ public class CheckUpdate {
     private Context context;
     private ProgressDialog dialog;
     static private Boolean init;
+    private View view;
+    private Integer hiddenTip;
 
     public  CheckUpdate(Context context){
-        new  CheckUpdate(context, false);
+        this(context, false);
     }
 
+
+    public CheckUpdate(final Context context,String type,View v ){
+        this.context = context;
+        this.view = v;
+        this.hiddenTip = 0;
+        this.init = false;
+        if(type=="Tip"){
+            Network network = new Network();
+            if(network.isNetworkConnected(context)){
+                checkVersion();
+            }else {
+
+            }
+        }else{
+
+        }
+
+    }
+    //点击处理
     public CheckUpdate(final Context context ,Boolean init){
         this.context = context;
         this.init = init;
+        this.hiddenTip = 1;
 
         Network network = new Network();
         if(!network.isNetworkConnected(context)){
@@ -70,26 +101,27 @@ public class CheckUpdate {
             }
         }
 
-
-        dialog = new ProgressDialog(context);
-        if(!this.init) {
-            dialog.setMessage("检查最新利率...");
-        }else{
-            dialog.setMessage("正在初始化...");
+        if(hiddenTip==1) {
+            dialog = new ProgressDialog(context);
+            if (!this.init) {
+                dialog.setMessage("检查最新利率...");
+            } else {
+                dialog.setMessage("正在初始化...");
+            }
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(true);
+            dialog.setIndeterminate(true);
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.show();
         }
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(true);
-        dialog.setIndeterminate(true);
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.show();
-
         checkVersion();
     }
 
 
+
     public void downRate(){
         dialog.setMessage("更新到最新利率...");
-        dialog.show();
+        if(hiddenTip==1) dialog.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -127,13 +159,18 @@ public class CheckUpdate {
                 }
 
 
-                // 执行完毕后给handler发送一个空消息
-                Message msg = new Message();
-                Bundle data = new Bundle();
-                data.putString("result", str);
-                data.putBoolean("isInit",init);
-                msg.setData(data);
-                handler.sendMessage(msg);
+                try {
+                    // 执行完毕后给handler发送一个空消息
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putString("result", str);
+                    data.putBoolean("isInit", init);
+                    msg.setData(data);
+                    Log.d("YT","-------message");
+                    handler.sendMessage(msg);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }).start();
     }
@@ -148,13 +185,15 @@ public class CheckUpdate {
             Bundle bundle = msg.getData();
             String str = bundle.getString("result");
             Boolean init = bundle.getBoolean("isInit");
-            if (dialog.isShowing())
-                dialog.dismiss();
-
+            if(hiddenTip==1 && dialog!=null) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+            }
 
             try {
                 JSONArray data = new JSONArray(str);
                 SQLiteDatabase db = new DataBaseHelp(context).getWritableDatabase();
+                db.delete("rate","1",null);
                 for(int i=0;i<data.length();i++){
                     JSONObject rate = data.getJSONObject(i);
                     ContentValues cv = new ContentValues();
@@ -175,11 +214,13 @@ public class CheckUpdate {
             }
 
 
-            dialog.dismiss();
-            Toast.makeText(context,"最新利率更新成功",Toast.LENGTH_LONG).show();
+            if(hiddenTip==1) dialog.dismiss();
+            if(hiddenTip==1) Toast.makeText(context,"最新利率更新成功",Toast.LENGTH_LONG).show();
             if(init){
                 ((MainActivity)context).initRate();
                 ((MainActivity)context).initTab();
+            }else{
+                ((MainActivity)context).initRate();
             }
         }
     };
@@ -194,8 +235,13 @@ public class CheckUpdate {
             Bundle bundle = msg.getData();
             String str = bundle.getString("result");
             Boolean init = bundle.getBoolean("isInit");
-            if (dialog.isShowing())
-                dialog.hide();
+
+            if(dialog!=null) {
+                if(hiddenTip==1) {
+                    if (dialog.isShowing())
+                        dialog.hide();
+                }
+            }
 
             String newVersion = "";
             JSONTokener data = new JSONTokener(str);
@@ -206,13 +252,34 @@ public class CheckUpdate {
                 e.printStackTrace();
             }
 
-
             if(Compar_date(newVersion,getVersion()) > 0){
-                Toast.makeText(context,"开始下载最新利率",Toast.LENGTH_SHORT).show();
-                downRate();
+                if(hiddenTip==1) Toast.makeText(context,"开始下载最新利率",Toast.LENGTH_SHORT).show();
+                if(hiddenTip==0) {
+                    if(view!=null) {
+                        View vUpdate = view.findViewById(R.id.toolBar);
+                        BadgeView badge = new BadgeView(context, vUpdate);
+                        badge.setText("New!");
+                        badge.setTextSize(12);
+                        badge.setBadgePosition(BadgeView.POSITION_TOP_UPDATE);
+
+                        TranslateAnimation anim = new TranslateAnimation(30, 0, 0, 0);
+                        anim.setInterpolator(new BounceInterpolator());
+                        anim.setDuration(1000);
+                        anim.setRepeatCount(10);
+                        TranslateAnimation anim2 = new TranslateAnimation(0, 30, 0, 0);
+                        anim2.setDuration(500);
+                        anim2.setRepeatCount(10);
+                        badge.toggle(anim, anim2);
+                    }
+                }else {
+                    downRate();
+                }
             }else{
-                Toast.makeText(context, "已经是最新的利率！", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+                if(hiddenTip==1) Toast.makeText(context, "已经是最新的利率！", Toast.LENGTH_LONG).show();
+                if(hiddenTip==1)
+                    if(dialog!=null){
+                        dialog.dismiss();
+                    }
             }
         }
     };
@@ -227,10 +294,8 @@ public class CheckUpdate {
             Date dtOld = df.parse(oldDate);
 
             if(dtNew.getTime()>dtOld.getTime()){
-                Log.d("YT","新的时间最新");
                 return 1;
             }else if(dtNew.getTime()<dtOld.getTime()){
-                Log.d("YT","旧时间最新的");
                 return -1;
             }
 

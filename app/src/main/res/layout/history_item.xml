@@ -1,61 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="查询日期"
- />
+    <TableRow
+        android:background="#AAffffff"
+        android:stretchColumns="*"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0000"
-        android:id="@+id/textViewHistoryDate"
-        />
+        <TextView
+            android:padding="5dp"
+            style="@style/ReultBody"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/textViewHistoryDate"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="" />
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="年利率"
-    />
+        <TextView
+            android:padding="5dp"
+            style="@style/ReultBody"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/textViewHistoryRate"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:text="0.00" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0.00"
-        android:id="@+id/textViewHistoryRate" />
+        <TextView
+            android:padding="5dp"
+            style="@style/ReultBody"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/textViewHistoryPrice"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="000" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="贷款数"
-        />
+        <TextView
+            android:padding="5dp"
+            style="@style/ReultBody"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/textViewHistoryYear"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:text="12" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="000"
-        android:id="@+id/textViewHistoryPrice" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="贷款年限"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="12"
-        android:id="@+id/textViewHistoryYear" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="删除"
-        android:id="@+id/buttonHistoryDel" />
+    </TableRow>
 
 
 </LinearLayout>

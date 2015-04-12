@@ -37,6 +37,7 @@
             android:label="@string/title_activity_result_tax" >
         </activity>
         <activity
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:name=".activity.History"
             android:label="@string/title_activity_history" >
         </activity>

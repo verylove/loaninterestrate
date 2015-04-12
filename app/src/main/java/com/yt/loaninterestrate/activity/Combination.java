@@ -1,10 +1,12 @@
 package com.yt.loaninterestrate.activity;
 
 import android.app.Activity;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +52,7 @@ public class Combination extends Fragment {
 
     private Spinner spinnerAgeLimit, spinnerSYInterestRate,spinnerGJJInterestRate,spinnerInterestRateSell;
     private EditText editTextSYLoanAmount, editTextSYRate,editTextGJJLoanAmount, editTextGJJRate;
-    private ImageButton buttonCalculate;
+    private ImageButton buttonCalculate,btnHome,buttonReset;
     private LinearLayout HiddenPart;
 
     private double loanSYMoney,loanGJJMoney, loanYear, loanSYRate ,loanGJJRate , sellMoney;
@@ -86,12 +88,35 @@ public class Combination extends Fragment {
         }
     }
 
+
+    public static boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MainActivity.mViewPager.setCurrentItem(0);
+        }
+        return false;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          View v =inflater.inflate(R.layout.fragment_combination, container, false);
         // Main.initTool(v);
          initData(v);
+        btnHome = (ImageButton)v.findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mViewPager.setCurrentItem(0);
+            }
+        });
+
+        buttonReset = (ImageButton)v.findViewById(R.id.btnReset);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ResetData();
+            }
+        });
 
         //利率折扣
         final List<interestRateSellData> interestrateselldatas = new ArrayList<>();
@@ -117,16 +142,16 @@ public class Combination extends Fragment {
 
 
                 double tmp11 = MainActivity.interestratess.get(spinnerGJJInterestRate.getSelectedItemPosition()).getRate(loanYear,1);
-                editTextGJJRate.setText(ResultActivity.get4s5r(1 * tmp11, 2) + "");
+                editTextGJJRate.setText(ResultActivity.formatFloatNumber(1 * tmp11));
 
                 double tmp =  sellMoney;
                 if(spinnerSYInterestRate.getSelectedItemPosition()!=-1) {
                     if (tmp == 0) {
                         double tmp1 = MainActivity.interestratess.get(spinnerSYInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextSYRate.setText(ResultActivity.get4s5r(1 * tmp1, 2) + "");
+                        editTextSYRate.setText(ResultActivity.formatFloatNumber(1 * tmp1));
                     } else {
                         double tmp1 = MainActivity.interestratess.get(spinnerSYInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextSYRate.setText(ResultActivity.get4s5r(tmp * 0.1 * tmp1, 2) + "");
+                        editTextSYRate.setText(ResultActivity.formatFloatNumber(tmp * 0.1 * tmp1));
                     }
                 }
 
@@ -159,10 +184,10 @@ public class Combination extends Fragment {
                 double tmp =  sellMoney;
                 if(tmp==0){
                     double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear);
-                    editTextSYRate.setText(ResultActivity.get4s5r(1*tmp1,2)+"");
+                    editTextSYRate.setText(ResultActivity.formatFloatNumber(1*tmp1));
                 }else{
                     double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear);
-                    editTextSYRate.setText(ResultActivity.get4s5r(tmp*0.1*tmp1,2)+"");
+                    editTextSYRate.setText(ResultActivity.formatFloatNumber(tmp*0.1*tmp1));
                 }
 
                 // Toast.makeText(getActivity(), MainActivity.interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
@@ -181,7 +206,7 @@ public class Combination extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                     double tmp1 = MainActivity.interestratess.get(i).getRate(loanYear,1);
-                    editTextGJJRate.setText(ResultActivity.get4s5r(tmp1,2)+"");
+                    editTextGJJRate.setText(ResultActivity.formatFloatNumber(tmp1));
 
                 // Toast.makeText(getActivity(), MainActivity.interestratess.get(i).toString() + "", Toast.LENGTH_LONG).show();
             }
@@ -208,11 +233,11 @@ public class Combination extends Fragment {
                     if (i == 0) {
                         double tmp = 1;//不打折
                         double tmp1 = MainActivity.interestratess.get(spinnerSYInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextSYRate.setText(ResultActivity.get4s5r(tmp * tmp1, 2) + "");
+                        editTextSYRate.setText(ResultActivity.formatFloatNumber(tmp * tmp1));
                     } else {
                         double tmp = sellMoney;
                         double tmp1 = MainActivity.interestratess.get(spinnerSYInterestRate.getSelectedItemPosition()).getRate(loanYear);
-                        editTextSYRate.setText(ResultActivity.get4s5r(tmp * 0.1 * tmp1, 2) + "");
+                        editTextSYRate.setText(ResultActivity.formatFloatNumber(tmp * 0.1 * tmp1));
                     }
                 }
 
@@ -272,7 +297,16 @@ public class Combination extends Fragment {
                 return v;
     }
 
+    public void ResetData(){
+        editTextSYLoanAmount.setText("");
+        editTextGJJLoanAmount.setText("");
 
+        spinnerAgeLimit.setSelection(9);
+        spinnerSYInterestRate.setSelection(0);
+        spinnerGJJInterestRate.setSelection(0);
+        spinnerInterestRateSell.setSelection(0);
+
+    }
     public void initData(View v){
 
         spinnerAgeLimit = (Spinner) v.findViewById(R.id.spinnerAgeLimit);//贷款年限选择列表
