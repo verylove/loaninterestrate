@@ -39,6 +39,7 @@ import com.yt.loaninterestrate.activity.Combination;
 import com.yt.loaninterestrate.activity.ExitDialog;
 import com.yt.loaninterestrate.activity.Init;
 import com.yt.loaninterestrate.tools.CheckUpdate;
+import com.yt.loaninterestrate.tools.CheckVersion;
 import com.yt.loaninterestrate.tools.DataBaseHelp;
 import com.yt.loaninterestrate.tools.InterestRate;
 
@@ -67,6 +68,10 @@ public class MainActivity extends FragmentActivity {
         //dm = getResources().getDisplayMetrics();
        // int densityDPI = dm.densityDpi;     // 屏幕密度（每寸像素：120(ldpi)/160(mdpi)/213(tvdpi)/240(hdpi)/320(xhdpi)）
        // Toast.makeText(this, "真实分辨率：" + screenWidth + "*" + screenHeight + "  每英寸:" + densityDPI, Toast.LENGTH_LONG).show();
+        CheckVersion manager = new CheckVersion(MainActivity.this);
+        // 检查软件更新
+        manager.checkUpdate();
+
 
         initRate();
 
