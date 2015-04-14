@@ -98,6 +98,7 @@ public class AccumulationFund extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_accumulation_fund, container, false);
         initData(v);
+        Main.initSkin(getActivity() ,v);
        // Main.initTool(v);
         btnHome = (ImageButton)v.findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {

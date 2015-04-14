@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_main"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.yt.loaninterestrate.Main"
     style="@style/background">
@@ -94,11 +95,11 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/btnHome"
+                android:id="@+id/btnBook"
                 android:layout_margin="@dimen/icon_body_padding"
                 android:layout_width="@dimen/main_tool_widthandheight"
                 android:layout_height="@dimen/main_tool_widthandheight"
-                android:background="@drawable/btn_home_press"/>
+                android:background="@drawable/btn_book_press"/>
 
             <ImageButton
                 android:id="@+id/btnPersion"

@@ -31,6 +31,8 @@ import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,9 +79,9 @@ public class CheckVersion
                 // 正在下载
                 case DOWNLOAD:
                     // 设置进度条位置
-                    Log.d("YT","---------CCC"+progress);
+                    //Log.d("YT","---------CCC"+progress);
                     updatePre.setText(progress+"%");
-                    updateSize.setText( downCount/1024+"Kb/"+downSize/1024+"Kb");
+                    updateSize.setText(Math.floor(downCount/1024)+"Kb/"+Math.floor(downSize/1024)+"Kb");
                     mProgress.setProgress(progress);
                     break;
                 case DOWNLOAD_FINISH:
@@ -213,7 +215,8 @@ public class CheckVersion
     {
         // 构造对话框
         AlertDialog.Builder builder = new Builder(mContext);
-        builder.setTitle(R.string.soft_update_title);
+
+        //builder.setTitle(R.string.soft_update_title);
         builder.setMessage(R.string.soft_update_info);
         // 更新
         builder.setPositiveButton(R.string.soft_update_updatebtn, new OnClickListener()

@@ -99,9 +99,10 @@ public class Combination extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         View v =inflater.inflate(R.layout.fragment_combination, container, false);
+        View v =inflater.inflate(R.layout.fragment_combination, container, false);
         // Main.initTool(v);
-         initData(v);
+        initData(v);
+        Main.initSkin(getActivity() ,v);
         btnHome = (ImageButton)v.findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override

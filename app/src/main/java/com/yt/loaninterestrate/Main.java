@@ -1,8 +1,13 @@
 package com.yt.loaninterestrate;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import com.yt.loaninterestrate.activity.HelpActivity;
@@ -39,7 +45,7 @@ public class Main extends Fragment {
 
     private ImageButton btn1,btn2,btn3,btn4;
 
-    private static  ImageButton btnHome,btnPersion,btnUpdate,btnSetting;
+    private static  ImageButton btnBook,btnPersion,btnUpdate,btnSetting;
     public static Context context;
 
     private OnFragmentInteractionListener mListener;
@@ -84,6 +90,7 @@ public class Main extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
+
         CheckUpdate ckup = new CheckUpdate(getActivity(),"Tip",v);
 
         btn1 = (ImageButton)v.findViewById(R.id.imageButton1);
@@ -122,22 +129,39 @@ public class Main extends Fragment {
         });
 
         initTool(v);
-
+        initSkin(context ,v);
         return v;
     }
 
 
+    public static void initSkin(Context context ,View v){
+        final SharedPreferences sp = context.getSharedPreferences("Skin", context.MODE_PRIVATE);
+        int which = sp.getInt("which", 0);
+        FrameLayout fragment_main;
+        fragment_main = (FrameLayout)v.findViewById(R.id.fragment_main);
+        Resources resources = context.getResources();
+        Drawable btnDrawable = null;
+        if(which==1){
+            btnDrawable = resources.getDrawable(R.drawable.bg1);
+        }else if(which==2){
+            btnDrawable = resources.getDrawable(R.drawable.bg2);
+        }else{
+            btnDrawable = resources.getDrawable(R.drawable.bg);
+        }
 
-    public static void initTool(View v){
-        btnHome = (ImageButton)v.findViewById(R.id.btnHome);
+        fragment_main.setBackgroundDrawable(btnDrawable);
+    }
+
+    public static void initTool(final View v){
+        btnBook = (ImageButton)v.findViewById(R.id.btnBook);
         btnPersion = (ImageButton)v.findViewById(R.id.btnPersion);
         btnUpdate  = (ImageButton)v.findViewById(R.id.btnUpdate);
         btnSetting = (ImageButton)v.findViewById(R.id.btnSetting);
 
-        btnHome.setOnClickListener(new View.OnClickListener() {
+        btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                MainActivity.mViewPager.setCurrentItem(0);
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, HelpActivity.class));
             }
         });
 
@@ -152,15 +176,36 @@ public class Main extends Fragment {
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 CheckUpdate checkupdate = new CheckUpdate(context);
             }
         });
 
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context,HelpActivity.class));
+            public void onClick(final View view) {
+
+                final SharedPreferences sp = context.getSharedPreferences("Skin", context.MODE_PRIVATE);
+
+                int which = sp.getInt("which", 0);
+
+                final String[] items = {"金属黄","卫士蓝","苹果绿"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("设置页面显示背景");
+                builder.setSingleChoiceItems(items, which, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        initSkin(context,v);
+                        SharedPreferences.Editor edit = sp.edit();
+                        edit.putInt("which", which);
+                        edit.commit();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
 
             }
         });

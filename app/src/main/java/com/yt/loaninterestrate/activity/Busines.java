@@ -105,6 +105,7 @@ public class Busines extends Fragment {
         View v = inflater.inflate(R.layout.fragment_busines, container, false);
 
         initData(v);
+        Main.initSkin(getActivity() ,v);
        // Main.initTool(v);
         btnHome = (ImageButton)v.findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
