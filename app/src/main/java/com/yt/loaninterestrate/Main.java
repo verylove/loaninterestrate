@@ -150,6 +150,7 @@ public class Main extends Fragment {
         }
 
         fragment_main.setBackgroundDrawable(btnDrawable);
+
     }
 
     public static void initTool(final View v){
@@ -197,10 +198,11 @@ public class Main extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        initSkin(context,v);
                         SharedPreferences.Editor edit = sp.edit();
                         edit.putInt("which", which);
                         edit.commit();
+                        initSkin(context,v);
+                        ((MainActivity)context).initTab();
                         dialog.dismiss();
                     }
                 });

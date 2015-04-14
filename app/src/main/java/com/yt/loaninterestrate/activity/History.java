@@ -23,6 +23,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yt.loaninterestrate.Main;
+import com.yt.loaninterestrate.MainActivity;
 import com.yt.loaninterestrate.R;
 import com.yt.loaninterestrate.tools.HistoryDataBasesHelp;
 
@@ -47,6 +49,7 @@ public class History extends ActionBarActivity {
                     .commit();
         }
         initData();
+
     }
 
 
@@ -130,6 +133,8 @@ public class History extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_history, container, false);
+
+            Main.initSkin(getActivity(),rootView);
 
             buttonDel = (Button)rootView.findViewById(R.id.buttonDel);
 

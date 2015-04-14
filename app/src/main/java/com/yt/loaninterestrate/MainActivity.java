@@ -118,7 +118,7 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    public void initTab(){
+    public  void initTab(){
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -164,6 +164,8 @@ public class MainActivity extends FragmentActivity {
         return false;
        // return super.onKeyDown(keyCode, event);
     }
+
+
 
     public Fragment getVisibleFragment(){
       List<Fragment> tmp = new ArrayList<Fragment>();
