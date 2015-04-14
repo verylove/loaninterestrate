@@ -16,7 +16,7 @@ public class HistoryDataBasesHelp  extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS history (_id INTEGER PRIMARY KEY, loanRate DOUBLE , loanMoney DOUBLE , loanGJJRate DOUBLE ,loanGJJMoney DOUBLE ,loanYear DOUBLE ,type INTEGER ,date DATE )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS history (_id INTEGER PRIMARY KEY, loanRate DOUBLE , loanMoney DOUBLE ,loanYear DOUBLE ,type INTEGER ,date DATE )");
     }
 
     @Override

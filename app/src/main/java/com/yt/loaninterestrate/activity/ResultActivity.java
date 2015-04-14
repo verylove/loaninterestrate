@@ -64,9 +64,6 @@ public class ResultActivity extends Dialog {
         ContentValues cv = new ContentValues();
         cv.put("loanRate",formatFloatNumber(loanRate));
         cv.put("loanMoney",formatFloatNumber(loanMoney));
-
-        cv.put("loanGJJRate",0);
-        cv.put("loanGJJMoney",0);
         cv.put("loanYear",loanYear);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         cv.put("date",df.format(new Date()));
@@ -89,14 +86,21 @@ public class ResultActivity extends Dialog {
 
         SQLiteDatabase db = new HistoryDataBasesHelp(context).getWritableDatabase();
 
+
         ContentValues cv = new ContentValues();
         cv.put("loanRate",formatFloatNumber(loanRate));
         cv.put("loanMoney",formatFloatNumber(loanMoney));
-
-        cv.put("loanGJJRate",formatFloatNumber(loanGJJRate));
-        cv.put("loanGJJMoney",formatFloatNumber(loanGJJMoney));
         cv.put("loanYear",loanYear);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        cv.put("date",df.format(new Date()));
+        cv.put("type",0);
+
+        db.insert("history",null,cv);
+
+        cv.clear();
+        cv.put("loanRate",formatFloatNumber(loanGJJRate));
+        cv.put("loanMoney",formatFloatNumber(loanGJJMoney));
+        cv.put("loanYear",loanYear);
         cv.put("date",df.format(new Date()));
         cv.put("type",1);
 

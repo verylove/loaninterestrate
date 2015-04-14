@@ -66,14 +66,10 @@ public class History extends ActionBarActivity {
             historyData = new HistoryDataClass();
 
             year = cursor.getInt(cursor.getColumnIndex("loanYear"));
-            if(cursor.getInt(cursor.getColumnIndex("type"))==1){
-                //公积金
-                rate = cursor.getDouble(cursor.getColumnIndex("loanGJJRate"));
-                price = cursor.getDouble(cursor.getColumnIndex("loanGJJMoney"));
-            }else{
+            //if(cursor.getInt(cursor.getColumnIndex("type"))==1){
                 rate = cursor.getDouble(cursor.getColumnIndex("loanRate"));
                 price = cursor.getDouble(cursor.getColumnIndex("loanMoney"));
-            }
+            //}
             date = cursor.getString(cursor.getColumnIndex("date"));
             historyData.setDate(date);
             historyData.setId(cursor.getInt(cursor.getColumnIndex("_id")));

@@ -175,11 +175,11 @@ public class CheckVersion
                     break;
                 case GET_UNDATAINFO_ERROR:
                     //服务器超时
-                    Toast.makeText(mContext, "获取服务器更新信息失败", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mContext, "获取服务器更新信息失败", Toast.LENGTH_LONG).show();
                     break;
                 case DOWN_ERROR:
                     //下载apk失败
-                    Toast.makeText(mContext, "下载新版本失败", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mContext, "下载新版本失败", Toast.LENGTH_LONG).show();
                     break;
             }
         }
@@ -216,8 +216,9 @@ public class CheckVersion
         // 构造对话框
         AlertDialog.Builder builder = new Builder(mContext);
 
-        //builder.setTitle(R.string.soft_update_title);
+        builder.setTitle(R.string.soft_update_title);
         builder.setMessage(R.string.soft_update_info);
+        builder.setIcon(R.drawable.ic_launcher);
         // 更新
         builder.setPositiveButton(R.string.soft_update_updatebtn, new OnClickListener()
         {

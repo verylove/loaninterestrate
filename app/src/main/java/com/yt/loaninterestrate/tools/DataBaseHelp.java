@@ -19,7 +19,7 @@ public class DataBaseHelp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS rate (_id INTEGER PRIMARY KEY, date DATE,mon6 DOUBLE,year1 DOUBLE,year3 DOUBLE,yaer5 DOUBLE,more5 DOUBLE,yeardown5 DOUBLE,yearup5  DOUBLE)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS rate (_id INTEGER PRIMARY KEY, date DATE,mon6 TEXT,year1 TEXT,year3 TEXT,yaer5 TEXT,more5 TEXT,yeardown5 TEXT,yearup5  TEXT)");
     }
 
     @Override

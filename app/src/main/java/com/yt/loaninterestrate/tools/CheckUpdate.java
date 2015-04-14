@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.ContactsContract;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -39,6 +40,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.LogRecord;
 
 import static java.lang.Thread.sleep;
@@ -166,7 +168,6 @@ public class CheckUpdate {
                     data.putString("result", str);
                     data.putBoolean("isInit", init);
                     msg.setData(data);
-                    Log.d("YT","-------message");
                     handler.sendMessage(msg);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -199,13 +200,13 @@ public class CheckUpdate {
                     ContentValues cv = new ContentValues();
                     cv.put("_id",rate.getString("id"));
                     cv.put("date",rate.getString("date"));
-                    cv.put("mon6",rate.getString("mon6"));
-                    cv.put("year1",rate.getString("year1"));
-                    cv.put("year3",rate.getString("year3"));
-                    cv.put("yaer5",rate.getString("yaer5"));
-                    cv.put("more5",rate.getString("more5"));
-                    cv.put("yeardown5",rate.getString("yeardown5"));
-                    cv.put("yearup5",rate.getString("yearup5"));
+                    cv.put("mon6",EncodeData(rate.getString("mon6")));
+                    cv.put("year1",EncodeData(rate.getString("year1")));
+                    cv.put("year3",EncodeData(rate.getString("year3")));
+                    cv.put("yaer5",EncodeData(rate.getString("yaer5")));
+                    cv.put("more5",EncodeData(rate.getString("more5")));
+                    cv.put("yeardown5",EncodeData(rate.getString("yeardown5")));
+                    cv.put("yearup5",EncodeData(rate.getString("yearup5")));
                     db.insert("rate",null,cv);
                 }
                 db.close();
@@ -322,7 +323,10 @@ public class CheckUpdate {
         }
         reader.close();
         connection.disconnect();
-        return sb.toString();
+        String tmp  = new String(Base64.decode(sb.toString(), Base64.DEFAULT));
+        String tmp1  = new String(Base64.decode(tmp,Base64.DEFAULT));
+        String tmp2  = new String(Base64.decode(tmp1,Base64.DEFAULT));
+        return tmp2;
     }
 
     /**
@@ -344,6 +348,18 @@ public class CheckUpdate {
             e.printStackTrace();
             return "";
         }
+    }
+
+
+    public static String EncodeData(String str){
+        String tmp = "";
+        tmp = String.valueOf((int)(Math.random() * 999+100))+str+String.valueOf((int)(Math.random() * 999+100));
+        return tmp;
+    }
+
+    public static Float DecodeData(String str){
+        String tmp = str.substring(3,str.length()-3);
+        return Float.parseFloat(tmp);
     }
 
 }

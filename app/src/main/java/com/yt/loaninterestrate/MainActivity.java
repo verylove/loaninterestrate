@@ -93,13 +93,13 @@ public class MainActivity extends FragmentActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            Float mon6 = cursor.getFloat(cursor.getColumnIndex("mon6"));
-            Float year1 = cursor.getFloat(cursor.getColumnIndex("year1"));
-            Float year3 = cursor.getFloat(cursor.getColumnIndex("year3"));
-            Float yaer5 = cursor.getFloat(cursor.getColumnIndex("yaer5"));
-            Float more5 = cursor.getFloat(cursor.getColumnIndex("more5"));
-            Float yeardown5 = cursor.getFloat(cursor.getColumnIndex("yeardown5"));
-            Float yearup5 = cursor.getFloat(cursor.getColumnIndex("yearup5"));
+            Float mon6 = CheckUpdate.DecodeData(cursor.getString(cursor.getColumnIndex("mon6")));
+            Float year1 = CheckUpdate.DecodeData(cursor.getString(cursor.getColumnIndex("year1")));
+            Float year3 = CheckUpdate.DecodeData(cursor.getString(cursor.getColumnIndex("year3")));
+            Float yaer5 = CheckUpdate.DecodeData(cursor.getString(cursor.getColumnIndex("yaer5")));
+            Float more5 = CheckUpdate.DecodeData(cursor.getString(cursor.getColumnIndex("more5")));
+            Float yeardown5 = CheckUpdate.DecodeData(cursor.getString(cursor.getColumnIndex("yeardown5")));
+            Float yearup5 = CheckUpdate.DecodeData(cursor.getString(cursor.getColumnIndex("yearup5")));
 
             InterestRate tmp = new InterestRate(id,date ,mon6,year1,year3,yaer5,more5,yeardown5,yearup5);
             interestratess.add(tmp);
