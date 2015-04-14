@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
 import com.yt.loaninterestrate.R;
 
 import org.w3c.dom.Text;
@@ -86,7 +87,17 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -203,6 +214,17 @@ public class HelpActivity extends ActionBarActivity implements ActionBar.TabList
                 curr = getArguments().getInt(ARG_SECTION_NUMBER);
                 body = getArguments().getString(BODY);
             }
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            MobclickAgent.onPageStart("MainScreen"); //统计页面
+        }
+        @Override
+        public void onPause() {
+            super.onPause();
+            MobclickAgent.onPageEnd("MainScreen");
         }
 
         @Override

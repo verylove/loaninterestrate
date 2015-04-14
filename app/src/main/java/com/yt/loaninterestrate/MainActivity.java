@@ -5,11 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentActivity;
@@ -32,6 +34,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
 import com.yt.loaninterestrate.activity.Tax;
 import com.yt.loaninterestrate.activity.AccumulationFund;
 import com.yt.loaninterestrate.activity.Busines;
@@ -60,7 +64,10 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        AnalyticsConfig.setAppkey("552d085dfd98c5f0e10008f5");
+        AnalyticsConfig.setChannel("Baidu");
+        MobclickAgent.updateOnlineConfig( getApplication() );
+        AnalyticsConfig.enableEncrypt(true);
        // int screenWidth = getWindowManager().getDefaultDisplay().getWidth();//真实分辨率 宽
        // int screenHeight = getWindowManager().getDefaultDisplay().getHeight();//真实分辨率 高
 
@@ -77,6 +84,23 @@ public class MainActivity extends FragmentActivity {
 
 }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
+
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("Skin", getApplicationContext().MODE_PRIVATE);
+        int which = sp.getInt("which", 0);
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("skin",which+"");
+        MobclickAgent.onEvent(getApplicationContext(), "skin", map);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MobclickAgent.onPause(this);
+    }
 
     public void initRate(){
         interestratess.clear();

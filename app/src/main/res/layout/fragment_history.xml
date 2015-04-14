@@ -17,13 +17,31 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/tableLayout">
+
         <TableRow
             android:background="#AAffffff"
             android:padding="10dp"
             android:layout_height="50dp"
             android:layout_width="match_parent">
+            <TextView
+                android:layout_span="4"
+                android:textSize="20dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="贷款查询历史"
+                android:gravity="center"
+                style="@style/ResultTitle"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_marginBottom="2dp"
+            android:background="#AAffffff"
+            android:layout_height="100dp"
+            android:layout_width="match_parent">
 
             <TextView
+                android:background="#AAffffff"
                 android:gravity="center"
                 style="@style/ResultTitle"
                 android:layout_weight="1"
@@ -32,6 +50,7 @@
                 android:text="日期"
                 />
             <TextView
+                android:background="#AAffffff"
                 android:gravity="center"
                 style="@style/ResultTitle"
                 android:layout_weight="1"
@@ -43,6 +62,7 @@
 
 
             <TextView
+                android:background="#AAffffff"
                 android:gravity="center"
                 style="@style/ResultTitle"
                 android:layout_weight="1"
@@ -53,6 +73,7 @@
 
 
             <TextView
+                android:background="#AAffffff"
                 android:gravity="center"
                 style="@style/ResultTitle"
                 android:layout_weight="1"
@@ -73,6 +94,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:textColor="#666666"
                 android:text="全部删除"
                 android:id="@+id/buttonDel"
                 android:background="#77FFFFFF"

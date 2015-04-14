@@ -1,6 +1,8 @@
 package com.yt.loaninterestrate.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.yt.loaninterestrate.Main;
 import com.yt.loaninterestrate.MainActivity;
 import com.yt.loaninterestrate.R;
@@ -51,6 +54,7 @@ public class History extends ActionBarActivity {
         initData();
 
     }
+
 
 
     public void initData(){
@@ -89,30 +93,15 @@ public class History extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        MobclickAgent.onResume(this);       //统计时长
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_history, menu);
-        return true;
+    protected void onStop() {
+        super.onStop();
+        MobclickAgent.onPause(this);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -140,12 +129,28 @@ public class History extends ActionBarActivity {
             buttonDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SQLiteDatabase db = new HistoryDataBasesHelp(getApplicationContext()).getWritableDatabase();
-                    db.delete("history","1",null);
-                    db.close();
-                    historyDatas.clear();
-                    listViewHistory.setAdapter(new adapterHistoryData());
-                    buttonDel.setVisibility(View.GONE);
+
+                    new AlertDialog.Builder(getActivity()).setTitle("确认全部删除吗？")
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SQLiteDatabase db = new HistoryDataBasesHelp(getApplicationContext()).getWritableDatabase();
+                                    db.delete("history","1",null);
+                                    db.close();
+                                    historyDatas.clear();
+                                    listViewHistory.setAdapter(new adapterHistoryData());
+                                    buttonDel.setVisibility(View.GONE);
+                                }
+                            })
+                            .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // 点击“返回”后的操作,这里不设置没有任何操作
+                                }
+                            }).show();
+
                 }
             });
 

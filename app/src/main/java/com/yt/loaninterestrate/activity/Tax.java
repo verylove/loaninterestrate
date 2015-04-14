@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.yt.loaninterestrate.Main;
 import com.yt.loaninterestrate.MainActivity;
 import com.yt.loaninterestrate.R;
@@ -88,6 +89,17 @@ public class Tax extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
     }
 
     public static boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
+import com.umeng.analytics.MobclickAgent;
 import com.yt.loaninterestrate.activity.HelpActivity;
 import com.yt.loaninterestrate.activity.History;
 import com.yt.loaninterestrate.tools.CheckUpdate;
@@ -81,6 +82,17 @@ public class Main extends Fragment {
         }
         this.context = getActivity();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
     }
 
     @Override
