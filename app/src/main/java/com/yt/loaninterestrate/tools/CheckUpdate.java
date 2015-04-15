@@ -190,10 +190,10 @@ public class CheckUpdate {
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
-
+            SQLiteDatabase db = null;
             try {
                 JSONArray data = new JSONArray(str);
-                SQLiteDatabase db = new DataBaseHelp(context).getWritableDatabase();
+                db = new DataBaseHelp(context).getWritableDatabase();
                 db.delete("rate","1",null);
                 for(int i=0;i<data.length();i++){
                     JSONObject rate = data.getJSONObject(i);
@@ -211,6 +211,7 @@ public class CheckUpdate {
                 }
                 db.close();
             } catch (JSONException e) {
+                db.close();
                 e.printStackTrace();
             }
 
@@ -335,17 +336,25 @@ public class CheckUpdate {
      * @return 当前利率最新时间
      */
     public String getVersion() {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
         try {
-            SQLiteDatabase db = new DataBaseHelp(context).getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT date FROM rate ORDER BY date DESC LIMIT 1", null);
+
+            db = new DataBaseHelp(context).getReadableDatabase();
+            cursor = db.rawQuery("SELECT date FROM rate ORDER BY date DESC LIMIT 1", null);
             if(cursor.moveToFirst()){
                 String date = cursor.getString(cursor.getColumnIndex("date"));
+                cursor.close();
+                db.close();
                 return date;
             }
+            cursor.close();
             db.close();
             return "";
         } catch (Exception e) {
             e.printStackTrace();
+            if(cursor!=null)  cursor.close();
+            if(db!=null) db.close();
             return "";
         }
     }

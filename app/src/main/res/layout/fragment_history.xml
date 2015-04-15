@@ -1,109 +1,109 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/bg"
     tools:context="com.yt.loaninterestrate.activity.History$PlaceholderFragment">
 
 
-
     <TableLayout
 
-        android:stretchColumns="*"
-        android:padding="10dp"
+        android:id="@+id/tableLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/tableLayout">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:stretchColumns="*">
 
         <TableRow
-            android:background="#AAffffff"
-            android:padding="10dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_width="match_parent">
+            android:background="#AAffffff"
+            android:padding="10dp">
+
             <TextView
-                android:layout_span="4"
-                android:textSize="20dp"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="贷款查询历史"
-                android:gravity="center"
                 style="@style/ResultTitle"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="4"
+                android:gravity="center"
+                android:text="贷款查询历史"
+                android:textSize="20dp" />
 
         </TableRow>
+
         <TableRow
-            android:layout_marginBottom="2dp"
-            android:background="#AAffffff"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_width="match_parent">
+            android:layout_marginBottom="2dp"
+            android:background="#AAffffff">
 
             <TextView
-                android:background="#AAffffff"
-                android:gravity="center"
                 style="@style/ResultTitle"
-                android:layout_weight="1"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:text="日期"
-                />
-            <TextView
+                android:layout_weight="1"
                 android:background="#AAffffff"
                 android:gravity="center"
+                android:text="日期" />
+
+            <TextView
                 style="@style/ResultTitle"
-                android:layout_weight="1"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:text="利率"
-                />
-
+                android:layout_weight="1"
+                android:background="#AAffffff"
+                android:gravity="center"
+                android:text="利率" />
 
 
             <TextView
-                android:background="#AAffffff"
-                android:gravity="center"
                 style="@style/ResultTitle"
-                android:layout_weight="1"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:text="贷款数"
-                />
+                android:layout_weight="1"
+                android:background="#AAffffff"
+                android:gravity="center"
+                android:text="贷款数" />
 
 
             <TextView
-                android:background="#AAffffff"
-                android:gravity="center"
                 style="@style/ResultTitle"
-                android:layout_weight="1"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:text="贷款年限"
-                />
+                android:layout_weight="1"
+                android:background="#AAffffff"
+                android:gravity="center"
+                android:text="贷款年限" />
         </TableRow>
-        <ListView
-            android:id="@+id/listViewData"
-            android:layout_width="match_parent"
-            android:layout_height="400dp">
-        </ListView>
+
+
+            <ListView
+                android:id="@+id/listViewData"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"></ListView>
+
 
         <TableRow
-            android:paddingTop="10dp"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:paddingTop="10dp">
+
             <Button
+                android:id="@+id/buttonDel"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textColor="#666666"
-                android:text="全部删除"
-                android:id="@+id/buttonDel"
-                android:background="#77FFFFFF"
-                android:layout_below="@+id/listViewData"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_span="4" />
+                android:layout_below="@+id/listViewData"
+                android:layout_span="4"
+                android:background="#77FFFFFF"
+                android:text="全部删除"
+                android:textColor="#666666" />
 
-            </TableRow>
+        </TableRow>
     </TableLayout>
 
 

@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity {
         AnalyticsConfig.setAppkey("552d085dfd98c5f0e10008f5");
         AnalyticsConfig.setChannel("Baidu");
         MobclickAgent.updateOnlineConfig( getApplication() );
-        AnalyticsConfig.enableEncrypt(true);
+       // AnalyticsConfig.enableEncrypt(true);
        // int screenWidth = getWindowManager().getDefaultDisplay().getWidth();//真实分辨率 宽
        // int screenHeight = getWindowManager().getDefaultDisplay().getHeight();//真实分辨率 高
 
@@ -75,9 +75,9 @@ public class MainActivity extends FragmentActivity {
         //dm = getResources().getDisplayMetrics();
        // int densityDPI = dm.densityDpi;     // 屏幕密度（每寸像素：120(ldpi)/160(mdpi)/213(tvdpi)/240(hdpi)/320(xhdpi)）
        // Toast.makeText(this, "真实分辨率：" + screenWidth + "*" + screenHeight + "  每英寸:" + densityDPI, Toast.LENGTH_LONG).show();
-        CheckVersion manager = new CheckVersion(MainActivity.this);
+        //CheckVersion manager = new CheckVersion(MainActivity.this);
         // 检查软件更新
-        manager.checkUpdate();
+        //manager.checkUpdate();
 
 
         initRate();
@@ -154,36 +154,37 @@ public class MainActivity extends FragmentActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         fg = getVisibleFragment();
-        if (fg instanceof Busines) {
-            Busines.onKeyDown(keyCode, event);
-        } else if (fg instanceof AccumulationFund) {
-            AccumulationFund.onKeyDown(keyCode, event);
-        } else if (fg instanceof Combination){
-            Combination.onKeyDown(keyCode, event);
-        }else if (fg instanceof Tax){
-            Tax.onKeyDown(keyCode, event);
-        }else if (fg instanceof Main){
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                new AlertDialog.Builder(this).setTitle("确认退出吗？")
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
+        if(fg!=null) {
+            if (fg instanceof Busines) {
+                Busines.onKeyDown(keyCode, event);
+            } else if (fg instanceof AccumulationFund) {
+                AccumulationFund.onKeyDown(keyCode, event);
+            } else if (fg instanceof Combination) {
+                Combination.onKeyDown(keyCode, event);
+            } else if (fg instanceof Tax) {
+                Tax.onKeyDown(keyCode, event);
+            } else if (fg instanceof Main) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    new AlertDialog.Builder(this).setTitle("确认退出吗？")
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
 
-                            }
-                        })
-                        .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+                                }
+                            })
+                            .setNegativeButton("返回", new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 点击“返回”后的操作,这里不设置没有任何操作
-                            }
-                        }).show();
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // 点击“返回”后的操作,这里不设置没有任何操作
+                                }
+                            }).show();
 
+                }
             }
         }
-
 
         return false;
        // return super.onKeyDown(keyCode, event);
@@ -192,27 +193,31 @@ public class MainActivity extends FragmentActivity {
 
 
     public Fragment getVisibleFragment(){
-      List<Fragment> tmp = new ArrayList<Fragment>();
-        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
-        List<Fragment> fragments = fragmentManager.getFragments();
-        for(Fragment fragment : fragments){
-            if(fragment != null && fragment.isVisible() && fragment.isAdded()) {
-                tmp.add(fragment);
+        try {
+            List<Fragment> tmp = new ArrayList<Fragment>();
+            FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+            List<Fragment> fragments = fragmentManager.getFragments();
+            for (Fragment fragment : fragments) {
+                if (fragment != null && fragment.isVisible() && fragment.isAdded()) {
+                    tmp.add(fragment);
+                }
+                // return fragment;
             }
-               // return fragment;
-        }
-        if(tmp.size()<=2){
-            if(tmp.get(1) instanceof  Tax){
+            if (tmp.size() <= 2) {
+                if (tmp.get(1) instanceof Tax) {
+                    return tmp.get(1);
+                } else {
+                    return tmp.get(0);
+                }
+            } else if (tmp.size() >= 3) {
                 return tmp.get(1);
-            }else {
-                return tmp.get(0);
+            } else {
+                return null;
             }
-        }else if(tmp.size()>=3){
-            return tmp.get(1);
-        }else{
-            return null;
-        }
+        }catch (Exception e){
 
+        }
+        return null;
     }
 
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {

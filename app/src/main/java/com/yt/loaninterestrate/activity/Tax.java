@@ -294,7 +294,7 @@ public class Tax extends Fragment {
                     }
 
                     String UnitPrice = editTextUnitPrice.getText().toString();
-                    if(UnitPrice!="") {
+                    if(!UnitPrice.isEmpty()) {
                         AreaUnit = Double.parseDouble(UnitPrice);
                     }else{
                         AreaUnit = 0.0;

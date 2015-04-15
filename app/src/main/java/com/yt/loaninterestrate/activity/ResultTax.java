@@ -34,6 +34,17 @@ public class ResultTax extends Dialog {
     private LinearLayout HiddenPart;
     private Activity parentActivity;
 
+    Context context;
+    public ResultTax(Context context) {
+        super(context);
+        this.context = context;
+    }
+    public ResultTax(Context context, int theme){
+        super(context, theme);
+        this.context = context;
+    }
+
+
     public ResultTax(Context context, int theme,Integer OldNew,Integer
             HouseType,Integer AllOff,Double HouseArea ,Double  HousePrice,
             Double  AGoHousePrice,Boolean isOver5, Boolean isFrist,Boolean isOnly) {
@@ -58,6 +69,8 @@ public class ResultTax extends Dialog {
         Gerensuode = 0.0;
 
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
